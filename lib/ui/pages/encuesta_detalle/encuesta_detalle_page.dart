@@ -38,16 +38,20 @@ class EncuestaDetallePage extends StatelessWidget {
                 1.0,
                 Alignment.centerLeft,
                 18),
-            body: _.detalles.length == 0
-                ? _emptyContainer(size)
-                : GetBuilder<EncuestaDetalleController>(
-                    id: 'detalles', 
-                    builder: (_) => ListView.builder(
-                      itemCount: _.detalles.length,
-                      itemBuilder: (context, index) =>
-                          _itemPersona(size, index),
+            body: GetBuilder<EncuestaDetalleController>(
+              id: 'detalles',
+              builder: (_)=> Container(
+                child:  _.detalles.length == 0
+                  ? _emptyContainer(size)
+                  : GetBuilder<EncuestaDetalleController>(
+                      builder: (_) => ListView.builder(
+                        itemCount: _.detalles.length,
+                        itemBuilder: (context, index) =>
+                            _itemPersona(size, index),
+                      ),
                     ),
-                  ),
+              ),
+            ),
           ),
           GetBuilder<EncuestaDetalleController>(
             id: 'validando',
@@ -65,7 +69,7 @@ class EncuestaDetallePage extends StatelessWidget {
 
   Widget _itemPersona(Size size, int index) {
     return GetBuilder<EncuestaDetalleController>(
-      id: 'detalles',
+      id: 'detalle_${index}',
       builder: (_) => Container(
         padding: EdgeInsets.only(top: 20, left: 10, right: 10),
         child: GestureDetector(

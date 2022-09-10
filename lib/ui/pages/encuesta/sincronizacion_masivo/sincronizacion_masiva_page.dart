@@ -31,7 +31,8 @@ class SincronizacionMasivaPage extends StatelessWidget {
                 _detalles(size),
                 _detallesSinSincronizar(size),
                 //_sincronizar(size),
-
+                if (_.dResultados.length > 0)
+                  _title2(size),
                 if (_.dResultados.length > 0)
                   _resultados(size, 'Sincronizados', '${_.sincronizados ?? 0}'),
                 if (_.dResultados.length > 0)
@@ -62,6 +63,23 @@ class SincronizacionMasivaPage extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           _.encuestaSeleccionada.titulo ?? '',
+          style: TextStyle(
+            color: black,
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _title2(Size size) {
+    return GetBuilder<SincronizacionMasivaController>(
+      builder: (_) => Container(
+        padding: EdgeInsets.only(left: 10, right: 10, top: 60, bottom: 20),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Resultados',
           style: TextStyle(
             color: black,
             fontWeight: FontWeight.w500,

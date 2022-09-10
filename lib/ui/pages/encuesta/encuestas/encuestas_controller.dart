@@ -63,13 +63,16 @@ class EncuestasController extends GetxController{
 
     SincronizacionMasivaBinding().dependencies();
 
-    await Get.to(()=> SincronizacionMasivaPage(),
+    final result=await Get.to(()=> SincronizacionMasivaPage(),
       arguments: {
         'encuesta': encuestas[index],
       }
     );
 
-    update(['encuestas']);
+    if(result != null){
+      
+      update(['encuestas']);
+    }
   }
   
 

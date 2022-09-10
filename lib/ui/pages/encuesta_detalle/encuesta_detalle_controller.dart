@@ -62,10 +62,11 @@ class EncuestaDetalleController extends GetxController {
   void onReady() async {
     validando = true;
     update(['validando']);
-
+    detalles=[];
     detalles = await _getAllEncuestaDetalleUseCase
         .execute('${encuestaSeleccionada.id}');
-
+    print(detalles.length);
+    print('ID: '+encuestaSeleccionada.id.toString());
     detalles.forEach((e) {
       if(e?.estadoLocal=='1') enviados=enviados+1;
     });
@@ -120,10 +121,10 @@ class EncuestaDetalleController extends GetxController {
           result.estadoLocal=0;
           detalles.add(result);
           encuestaSeleccionada.cantidadTotal=detalles.length;
+          encuestaSeleccionada.hayPendientes=true;
           await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
-          update(['detalles']);
+          update(['validando','detalles']);
         }
-        update(['detalles']);
       }
       else{
         toastError('Error', 'No se encontró el numero de documento.');

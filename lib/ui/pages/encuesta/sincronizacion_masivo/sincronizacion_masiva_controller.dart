@@ -104,8 +104,8 @@ class SincronizacionMasivaController extends GetxController{
         detallesSinSincronizar[i]
       );
     }
+    encuestaSeleccionada.hayPendientes=((detallesSinSincronizar?.length ?? 0) > sincronizados);
     detallesSinSincronizar.clear();
-    encuestaSeleccionada.hayPendientes=(sincronizados == detallesSinSincronizar?.length);
     /* encuestaSeleccionada.cantidadTotal=detalles.length+1; */
     
     await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
