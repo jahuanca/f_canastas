@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/vehiculo_entity.dart';
+import 'package:flutter_actividades/domain/entities/vehiculo_entity.dart';
 
 abstract class VehiculoRepository{
 

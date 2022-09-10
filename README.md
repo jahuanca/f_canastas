@@ -1,4 +1,4 @@
-# flutter_canastas
+# flutter_actividades
 
 A new Flutter project.
 

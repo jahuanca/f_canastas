@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/producto_entity.dart';
-import 'package:flutter_canastas/domain/repositories/producto_repository.dart';
+import 'package:flutter_actividades/domain/entities/producto_entity.dart';
+import 'package:flutter_actividades/domain/repositories/producto_repository.dart';
 
 class GetProductosUseCase{
   final ProductoRepository _productoRepository;

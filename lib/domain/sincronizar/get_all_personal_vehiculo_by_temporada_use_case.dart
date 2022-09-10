@@ -1,6 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/personal_vehiculo_entity.dart';
-import 'package:flutter_canastas/domain/repositories/personal_vehiculo_repository.dart';
+import 'package:flutter_actividades/domain/repositories/personal_vehiculo_repository.dart';
 
 class GetAllPersonalVehiculoByTemporadaUseCase{
   final PersonalVehiculoRepository _personalVehiculoByTemporadaRepository;

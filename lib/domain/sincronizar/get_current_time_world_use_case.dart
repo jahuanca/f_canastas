@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/current_time_entity.dart';
-import 'package:flutter_canastas/domain/repositories/current_time_repository.dart';
+import 'package:flutter_actividades/domain/entities/current_time_entity.dart';
+import 'package:flutter_actividades/domain/repositories/current_time_repository.dart';
 
 
 class GetCurrentTimeWorldUseCase{

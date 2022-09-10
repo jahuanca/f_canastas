@@ -3,7 +3,7 @@
 //     final vehiculoEntity = vehiculoEntityFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'personal_vehiculo_entity.g.dart';
@@ -23,6 +23,7 @@ class PersonalVehiculoEntity {
         this.idpuntoentrega,
         this.key,
         this.nrodocumento,
+        this.idtemporada,
     });
 
     @HiveField(0)
@@ -47,6 +48,8 @@ class PersonalVehiculoEntity {
     int key;
     @HiveField(10)
     String nrodocumento;
+    @HiveField(11)
+    int idtemporada;
 
     factory PersonalVehiculoEntity.fromJson(Map<String, dynamic> json) => PersonalVehiculoEntity(
         id: json["id"] == null ? null : (json["id"] as num),
@@ -56,6 +59,7 @@ class PersonalVehiculoEntity {
         nrodocumento: json["nrodocumento"] == null ? null : json["nrodocumento"],
         apto: json["apto"] == null ? null : json["apto"],
         key: json["key"] == null ? null : json["key"],
+        idtemporada: json["idtemporada"] == null ? null : json["idtemporada"],
         fecha: json["fecha"] == null ? null : DateTime.parse(json["fecha"]),
         hora: json["hora"] == null ? null : DateTime.parse(json["hora"]),
         idpuntoentrega: json["idpuntoentrega"] == null ? null : json["idpuntoentrega"],
@@ -69,6 +73,7 @@ class PersonalVehiculoEntity {
         "nrodocumento": nrodocumento == null ? null : nrodocumento,
         "apto": apto == null ? null : apto,
         "key": key == null ? null : key,
+        "idtemporada": idtemporada == null ? null : idtemporada,
         "fecha": fecha == null ? null : fecha.toIso8601String(),
         "hora": hora == null ? null : hora.toIso8601String(),
         "idpuntoentrega": idpuntoentrega == null ? null : idpuntoentrega,

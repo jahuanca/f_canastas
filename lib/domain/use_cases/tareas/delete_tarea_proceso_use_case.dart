@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/repositories/tarea_proceso_repository.dart';
+import 'package:flutter_actividades/domain/repositories/tarea_proceso_repository.dart';
 
 class DeleteTareaProcesoUseCase{
   final TareaProcesoRepository _tareaProcesoRepository;

@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/usuario_entity.dart';
-import 'package:flutter_canastas/domain/repositories/usuario_repository.dart';
+import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
+import 'package:flutter_actividades/domain/repositories/usuario_repository.dart';
 
 class GetUsuariosUseCase{
   final UsuarioRepository _usuarioRepository;

@@ -1,7 +1,7 @@
 
 
-import 'package:flutter_canastas/domain/entities/tipo_tarea_entity.dart';
-import 'package:flutter_canastas/domain/repositories/tipo_tarea_repository.dart';
+import 'package:flutter_actividades/domain/entities/tipo_tarea_entity.dart';
+import 'package:flutter_actividades/domain/repositories/tipo_tarea_repository.dart';
 
 class GetTipoTareasUseCase{
   final TipoTareaRepository _TipoTareaRepository;

@@ -1,7 +1,7 @@
 
 import 'dart:io';
 
-import 'package:flutter_canastas/domain/entities/tarea_proceso_entity.dart';
+import 'package:flutter_actividades/domain/entities/tarea_proceso_entity.dart';
 
 abstract class TareaProcesoRepository{
 

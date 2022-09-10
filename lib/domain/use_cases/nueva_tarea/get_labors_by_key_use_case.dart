@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/labor_entity.dart';
-import 'package:flutter_canastas/domain/repositories/labor_repository.dart';
+import 'package:flutter_actividades/domain/entities/labor_entity.dart';
+import 'package:flutter_actividades/domain/repositories/labor_repository.dart';
 
 class GetLaborsByKeyUseCase{
   final LaborRepository _laborRepository;

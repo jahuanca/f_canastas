@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/repositories/pre_tareo_proceso_uva_repository.dart';
+import 'package:flutter_actividades/domain/repositories/pre_tareo_proceso_uva_repository.dart';
 
 class DeletePreTareoProcesoUvaUseCase{
   final PreTareoProcesoUvaRepository _preTareoProcesoUvaRepository;

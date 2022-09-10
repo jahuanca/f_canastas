@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/punto_entrega_entity.dart';
+import 'package:flutter_actividades/domain/entities/punto_entrega_entity.dart';
 
 abstract class PuntoEntregaRepository{
 

@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/labor_entity.dart';
+import 'package:flutter_actividades/domain/entities/labor_entity.dart';
 
 abstract class LaborRepository{
 

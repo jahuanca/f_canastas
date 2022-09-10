@@ -3,7 +3,7 @@
 //     final laborEntity = laborEntityFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:flutter_canastas/domain/entities/actividad_entity.dart';
+import 'package:flutter_actividades/domain/entities/actividad_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'labor_entity.g.dart';

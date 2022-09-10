@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/repositories/pre_tarea_esparrago_grupo_repository.dart';
+import 'package:flutter_actividades/domain/repositories/pre_tarea_esparrago_grupo_repository.dart';
 
 class DeleteSeleccionUseCase{
   final PreTareaEsparragoGrupoRepository _repository;

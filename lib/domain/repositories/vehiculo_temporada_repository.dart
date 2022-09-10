@@ -1,6 +1,6 @@
 
 import 'dart:io';
-import 'package:flutter_canastas/domain/entities/vehiculo_temporada_entity.dart';
+import 'package:flutter_actividades/domain/entities/vehiculo_temporada_entity.dart';
 
 abstract class VehiculoTemporadaRepository{
 

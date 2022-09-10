@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/subdivision_entity.dart';
-import 'package:flutter_canastas/domain/repositories/subdivision_repository.dart';
+import 'package:flutter_actividades/domain/entities/subdivision_entity.dart';
+import 'package:flutter_actividades/domain/repositories/subdivision_repository.dart';
 
 class GetSubdivisonsUseCase{
   final SubdivisionRepository _subdivisionRepository;

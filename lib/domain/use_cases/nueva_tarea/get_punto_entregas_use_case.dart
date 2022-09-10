@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/punto_entrega_entity.dart';
-import 'package:flutter_canastas/domain/repositories/punto_entrega_repository.dart';
+import 'package:flutter_actividades/domain/entities/punto_entrega_entity.dart';
+import 'package:flutter_actividades/domain/repositories/punto_entrega_repository.dart';
 
 class GetPuntoEntregasUseCase{
   final PuntoEntregaRepository _puntoEntregaRepository;

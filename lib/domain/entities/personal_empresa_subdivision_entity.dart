@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'package:hive/hive.dart';
 
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 
 part 'personal_empresa_subdivision_entity.g.dart';
 

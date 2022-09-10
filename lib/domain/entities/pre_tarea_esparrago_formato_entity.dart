@@ -1,7 +1,7 @@
-import 'package:flutter_canastas/domain/entities/cliente_entity.dart';
-import 'package:flutter_canastas/domain/entities/actividad_entity.dart';
-import 'package:flutter_canastas/domain/entities/labor_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_detalle_entity.dart';
+import 'package:flutter_actividades/domain/entities/cliente_entity.dart';
+import 'package:flutter_actividades/domain/entities/actividad_entity.dart';
+import 'package:flutter_actividades/domain/entities/labor_entity.dart';
+import 'package:flutter_actividades/domain/entities/pre_tarea_esparrago_detalle_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'pre_tarea_esparrago_formato_entity.g.dart';

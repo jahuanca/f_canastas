@@ -1,6 +1,6 @@
 
-import 'package:flutter_canastas/domain/entities/cliente_entity.dart';
-import 'package:flutter_canastas/domain/repositories/cliente_repository.dart';
+import 'package:flutter_actividades/domain/entities/cliente_entity.dart';
+import 'package:flutter_actividades/domain/repositories/cliente_repository.dart';
 
 class GetClientesUseCase{
   final ClienteRepository _clienteRepository;

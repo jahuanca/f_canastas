@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter_canastas/core/strings.dart';
-import 'package:flutter_canastas/domain/entities/message_entity.dart';
-import 'package:flutter_canastas/ui/utils/alert_dialogs.dart';
+import 'package:flutter_actividades/core/entregable/strings.dart';
+import 'package:flutter_actividades/domain/entities/message_entity.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter_canastas/data/http_manager/http_manager.dart';
-import 'package:flutter_canastas/domain/exceptions/app_exceptions.dart';
+import 'package:flutter_actividades/data/http_manager/http_manager.dart';
+import 'package:flutter_actividades/domain/exceptions/app_exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const timeout = Duration(seconds: 45);

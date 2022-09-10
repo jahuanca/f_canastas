@@ -1,6 +1,6 @@
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter_canastas/ui/utils/alert_dialogs.dart';
 
 Future<bool> hasInternet() async {
     ConnectivityResult conectividad = await Connectivity().checkConnectivity();

@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_uva_entity.dart';
-import 'package:flutter_canastas/domain/entities/tarea_proceso_entity.dart';
-import 'package:flutter_canastas/domain/repositories/export_data_repository.dart';
-import 'package:flutter_canastas/ui/utils/alert_dialogs.dart';
-import 'package:flutter_canastas/ui/utils/listas.dart';
-import 'package:flutter_canastas/ui/utils/string_formats.dart';
+import 'package:flutter_actividades/domain/entities/pre_tareo_proceso_entity.dart';
+import 'package:flutter_actividades/domain/entities/pre_tareo_proceso_uva_entity.dart';
+import 'package:flutter_actividades/domain/entities/tarea_proceso_entity.dart';
+import 'package:flutter_actividades/domain/repositories/export_data_repository.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
+import 'package:flutter_actividades/ui/utils/listas.dart';
+import 'package:flutter_actividades/ui/utils/string_formats.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -61,7 +61,7 @@ class ExportDataRepositoryImplementation extends ExportDataRepository{
     this.platform = Theme.of(Get.overlayContext).platform;
 
     final directory = this.platform == TargetPlatform.android
-        ? '/storage/emulated/0/Android/data/com.example.flutter_canastas/files'
+        ? '/storage/emulated/0/Android/data/com.example.flutter_actividades/entregable/files'
         : (await getApplicationDocumentsDirectory()).path +
             Platform.pathSeparator +
             'Download';

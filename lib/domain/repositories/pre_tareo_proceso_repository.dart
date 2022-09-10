@@ -1,6 +1,6 @@
 
 import 'dart:io';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_entity.dart';
+import 'package:flutter_actividades/domain/entities/pre_tareo_proceso_entity.dart';
 
 abstract class PreTareoProcesoRepository{
 

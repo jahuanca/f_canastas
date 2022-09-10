@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'package:hive/hive.dart';
 
-import 'package:flutter_canastas/domain/entities/personal_empresa_subdivision_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_subdivision_entity.dart';
 
 part 'personal_empresa_entity.g.dart';
 
@@ -73,7 +73,7 @@ class PersonalEmpresaEntity {
       );
 
   String get nombreCompleto {
-    return apellidopaterno + ' ' + apellidomaterno + ' , ' + nombres;
+    return apellidopaterno + ' ' + apellidomaterno + ', ' + nombres;
   }
 
   Map<String, dynamic> toJson() => {
@@ -82,15 +82,15 @@ class PersonalEmpresaEntity {
         "apellidomaterno": apellidomaterno,
         "nombres": nombres,
         "nrodocumento": nrodocumento,
-        "fechamod": fechamod.toIso8601String(),
+        "fechamod": fechamod?.toIso8601String(),
         "idtipodocumento": idtipodocumento,
         "fechaingreso":
-            "${fechaingreso.year.toString().padLeft(4, '0')}-${fechaingreso.month.toString().padLeft(2, '0')}-${fechaingreso.day.toString().padLeft(2, '0')}",
+            "${fechaingreso?.year.toString().padLeft(4, '0')}-${fechaingreso?.month.toString().padLeft(2, '0')}-${fechaingreso?.day.toString().padLeft(2, '0')}",
         "bloqueado": bloqueado,
         "fechacese":
-            "${fechacese.year.toString().padLeft(4, '0')}-${fechacese.month.toString().padLeft(2, '0')}-${fechacese.day.toString().padLeft(2, '0')}",
+            "${fechacese?.year.toString().padLeft(4, '0')}-${fechacese?.month.toString().padLeft(2, '0')}-${fechacese?.day.toString().padLeft(2, '0')}",
         "idusuario": idusuario,
-        "PersonalEmpresa_Subdivision": personalEmpresaSubdivision.toJson(),
+        "PersonalEmpresa_Subdivision": personalEmpresaSubdivision?.toJson(),
       };
 }
 

@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/repositories/export_data_repository.dart';
+import 'package:flutter_actividades/domain/repositories/export_data_repository.dart';
 
 class ExportDataToExcelUseCase{
   final ExportDataRepository _exportDataRepository;

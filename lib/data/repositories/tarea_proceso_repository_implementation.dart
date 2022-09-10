@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter_canastas/core/strings.dart';
-import 'package:flutter_canastas/data/http_manager/app_http_manager.dart';
-import 'package:flutter_canastas/domain/entities/tarea_proceso_entity.dart';
-import 'package:flutter_canastas/domain/repositories/tarea_proceso_repository.dart';
+import 'package:flutter_actividades/core/entregable/strings.dart';
+import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
+import 'package:flutter_actividades/domain/entities/tarea_proceso_entity.dart';
+import 'package:flutter_actividades/domain/repositories/tarea_proceso_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;

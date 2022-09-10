@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/actividad_entity.dart';
+import 'package:flutter_actividades/domain/entities/actividad_entity.dart';
 
 abstract class ActividadRepository{
 

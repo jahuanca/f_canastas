@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/temporada_entity.dart';
+import 'package:flutter_actividades/domain/entities/temporada_entity.dart';
 
 abstract class TemporadaRepository{
 

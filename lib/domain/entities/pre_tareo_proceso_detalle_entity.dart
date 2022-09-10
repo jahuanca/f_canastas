@@ -1,4 +1,4 @@
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'pre_tareo_proceso_detalle_entity.g.dart';

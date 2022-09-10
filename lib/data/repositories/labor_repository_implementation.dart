@@ -1,7 +1,7 @@
-import 'package:flutter_canastas/data/http_manager/app_http_manager.dart';
-import 'package:flutter_canastas/domain/entities/labor_entity.dart';
-import 'package:flutter_canastas/domain/repositories/labor_repository.dart';
-import 'package:flutter_canastas/ui/utils/preferencias_usuario.dart';
+import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
+import 'package:flutter_actividades/domain/entities/labor_entity.dart';
+import 'package:flutter_actividades/domain/repositories/labor_repository.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';
 
 class LaborRepositoryImplementation extends LaborRepository {

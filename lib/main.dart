@@ -1,41 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_canastas/domain/entities/actividad_entity.dart';
-import 'package:flutter_canastas/domain/entities/centro_costo_entity.dart';
-import 'package:flutter_canastas/domain/entities/cliente_entity.dart';
-import 'package:flutter_canastas/domain/entities/cultivo_entity.dart';
-import 'package:flutter_canastas/domain/entities/division_entity.dart';
-import 'package:flutter_canastas/domain/entities/labor_entity.dart';
-import 'package:flutter_canastas/domain/entities/log_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_apto_temporada_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_empresa_subdivision_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_tarea_proceso_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_vehiculo_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_detalle_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_detalle_grupo_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_detalle_varios_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_formato_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_grupo_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_varios_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_detalle_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_uva_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_uva_detalle_entity.dart';
-import 'package:flutter_canastas/domain/entities/presentacion_linea_entity.dart';
-import 'package:flutter_canastas/domain/entities/producto_entity.dart';
-import 'package:flutter_canastas/domain/entities/punto_entrega_entity.dart';
-import 'package:flutter_canastas/domain/entities/subdivision_entity.dart';
-import 'package:flutter_canastas/domain/entities/tarea_proceso_entity.dart';
-import 'package:flutter_canastas/domain/entities/temporada_entity.dart';
-import 'package:flutter_canastas/domain/entities/tipo_tarea_entity.dart';
-import 'package:flutter_canastas/domain/entities/usuario_entity.dart';
-import 'package:flutter_canastas/domain/entities/usuario_perfil_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_entity.dart';
-import 'package:flutter_canastas/domain/entities/vehiculo_entity.dart';
-import 'package:flutter_canastas/domain/entities/vehiculo_temporada_entity.dart';
-import 'package:flutter_canastas/ui/app.dart';
+import 'package:flutter_actividades/register_adapters.dart';
+import 'package:flutter_actividades/ui/app.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_canastas/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';
 
 void main() async{
@@ -46,41 +13,8 @@ void main() async{
 
   var path=await getApplicationDocumentsDirectory();
   Hive.init(path.path);
-  Hive.registerAdapter(LogEntityAdapter());
-  Hive.registerAdapter(TareaProcesoEntityAdapter());
-  Hive.registerAdapter(ActividadEntityAdapter());
-  Hive.registerAdapter(PersonalEmpresaEntityAdapter());
-  Hive.registerAdapter(SubdivisionEntityAdapter());
-  Hive.registerAdapter(PersonalTareaProcesoEntityAdapter());
-  Hive.registerAdapter(PersonalEmpresaSubdivisionEntityAdapter());
-  Hive.registerAdapter(UsuarioEntityAdapter());
-  Hive.registerAdapter(CentroCostoEntityAdapter());
-  Hive.registerAdapter(DivisionEntityAdapter());
-  Hive.registerAdapter(LaborEntityAdapter());
-  Hive.registerAdapter(UsuarioPerfilEntityAdapter());
-  Hive.registerAdapter(PreTareoProcesoEntityAdapter());
-  Hive.registerAdapter(CultivoEntityAdapter());
-  Hive.registerAdapter(PresentacionLineaEntityAdapter());
-  Hive.registerAdapter(PreTareoProcesoDetalleEntityAdapter());
-  Hive.registerAdapter(PreTareoProcesoUvaEntityAdapter());
-  Hive.registerAdapter(PreTareoProcesoUvaDetalleEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoVariosEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoDetalleVariosEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoGrupoEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoDetalleGrupoEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoFormatoEntityAdapter());
-  Hive.registerAdapter(PreTareaEsparragoDetalleEntityAdapter());
-  Hive.registerAdapter(ClienteEntityAdapter());
-  Hive.registerAdapter(TipoTareaEntityAdapter());
-  Hive.registerAdapter(VehiculoEntityAdapter());
-  Hive.registerAdapter(TemporadaEntityAdapter());
-  Hive.registerAdapter(ProductoEntityAdapter());
-  Hive.registerAdapter(PersonalAptoTemporadaEntityAdapter());
-  Hive.registerAdapter(PersonalVehiculoEntityAdapter());
-  Hive.registerAdapter(VehiculoTemporadaEntityAdapter());
-  Hive.registerAdapter(PuntoEntregaEntityAdapter());
   
+  registerAdapter();
   
   runApp(MyApp());
 }

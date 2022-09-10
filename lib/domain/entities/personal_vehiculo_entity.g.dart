@@ -29,13 +29,14 @@ class PersonalVehiculoEntityAdapter
       idpuntoentrega: fields[8] as int,
       key: fields[9] as int,
       nrodocumento: fields[10] as String,
+      idtemporada: fields[11] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, PersonalVehiculoEntity obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -57,7 +58,9 @@ class PersonalVehiculoEntityAdapter
       ..writeByte(9)
       ..write(obj.key)
       ..writeByte(10)
-      ..write(obj.nrodocumento);
+      ..write(obj.nrodocumento)
+      ..writeByte(11)
+      ..write(obj.idtemporada);
   }
 
   @override

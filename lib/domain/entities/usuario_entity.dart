@@ -3,7 +3,7 @@
 //     final usuarioEntity = usuarioEntityFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:flutter_canastas/domain/entities/usuario_perfil_entity.dart';
+import 'package:flutter_actividades/domain/entities/usuario_perfil_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'usuario_entity.g.dart';

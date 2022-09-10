@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_canastas/core/colors.dart';
-import 'package:flutter_canastas/domain/entities/cultivo_entity.dart';
-import 'package:flutter_canastas/domain/entities/pre_tareo_proceso_uva_detalle_entity.dart';
-import 'package:flutter_canastas/domain/entities/subdivision_entity.dart';
-import 'package:flutter_canastas/domain/entities/presentacion_linea_entity.dart';
-import 'package:flutter_canastas/domain/entities/centro_costo_entity.dart';
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/core/entregable/colors.dart';
+import 'package:flutter_actividades/domain/entities/cultivo_entity.dart';
+import 'package:flutter_actividades/domain/entities/pre_tareo_proceso_uva_detalle_entity.dart';
+import 'package:flutter_actividades/domain/entities/subdivision_entity.dart';
+import 'package:flutter_actividades/domain/entities/presentacion_linea_entity.dart';
+import 'package:flutter_actividades/domain/entities/centro_costo_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 

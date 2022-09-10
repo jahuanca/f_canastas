@@ -1,4 +1,4 @@
-import 'package:flutter_canastas/domain/entities/tipo_tarea_entity.dart';
+import 'package:flutter_actividades/domain/entities/tipo_tarea_entity.dart';
 
 abstract class TipoTareaRepository{
 

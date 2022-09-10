@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 
 abstract class PersonalEmpresaRepository{
   Future<List<PersonalEmpresaEntity>> getAll();

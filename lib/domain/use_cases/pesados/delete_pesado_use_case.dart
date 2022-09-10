@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/repositories/pre_tarea_esparrago_varios_repository.dart';
+import 'package:flutter_actividades/domain/repositories/pre_tarea_esparrago_varios_repository.dart';
 
 class DeletePesadoUseCase{
   final PreTareaEsparragoVariosRepository _repository;

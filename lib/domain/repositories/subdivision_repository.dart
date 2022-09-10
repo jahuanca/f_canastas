@@ -1,5 +1,5 @@
 
-import 'package:flutter_canastas/domain/entities/subdivision_entity.dart';
+import 'package:flutter_actividades/domain/entities/subdivision_entity.dart';
 
 abstract class SubdivisionRepository{
 

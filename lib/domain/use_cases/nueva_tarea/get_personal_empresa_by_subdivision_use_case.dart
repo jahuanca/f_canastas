@@ -3,8 +3,8 @@
 
 
 
-import 'package:flutter_canastas/domain/entities/personal_empresa_entity.dart';
-import 'package:flutter_canastas/domain/repositories/personal_empresa_repository.dart';
+import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/repositories/personal_empresa_repository.dart';
 
 class GetPersonalsEmpresaBySubdivisionUseCase{
   final PersonalEmpresaRepository _personalEmpresaRepository;

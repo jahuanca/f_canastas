@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter_canastas/core/strings.dart';
-import 'package:flutter_canastas/data/http_manager/app_http_manager.dart';
-import 'package:flutter_canastas/domain/entities/personal_vehiculo_entity.dart';
-import 'package:flutter_canastas/domain/entities/vehiculo_temporada_entity.dart';
-import 'package:flutter_canastas/domain/repositories/vehiculo_temporada_repository.dart';
-import 'package:flutter_canastas/ui/utils/preferencias_usuario.dart';
+import 'package:flutter_actividades/core/entregable/strings.dart';
+import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
+import 'package:flutter_actividades/domain/entities/personal_vehiculo_entity.dart';
+import 'package:flutter_actividades/domain/entities/vehiculo_temporada_entity.dart';
+import 'package:flutter_actividades/domain/repositories/vehiculo_temporada_repository.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
@@ -65,16 +65,17 @@ class VehiculoTemporadaRepositoryImplementation
     var tareas = await Hive.openBox<VehiculoTemporadaEntity>(box);
     int key = await tareas.add(vehiculo);
     vehiculo.key = key;
-    tareas.put(key, vehiculo);
+    await tareas.put(key, vehiculo);
     return key;
   }
 
   @override
   Future<void> delete(String box, int key) async {
     var tareas = await Hive.openBox<VehiculoTemporadaEntity>(box);
+    var t=tareas.get(key);
     await tareas.delete(key);
 
-    await Hive.openBox('personal_vehiculo_$key')..deleteFromDisk();
+    await Hive.openBox('${t.idtemporada}-personal_vehiculo_$key')..deleteFromDisk();
     await tareas.close();
     return;
   }
@@ -100,7 +101,7 @@ class VehiculoTemporadaRepositoryImplementation
     if (v.personal == null) v.personal = [];
 
     Box<PersonalVehiculoEntity> p = await Hive.openBox<PersonalVehiculoEntity>(
-        'personal_vehiculo_${v.key}');
+        '${v.idtemporada}-personal_vehiculo_${v.key}');
     v.personal = p.values.toList();
     await p.close();
 

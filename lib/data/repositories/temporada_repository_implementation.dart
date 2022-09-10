@@ -1,8 +1,8 @@
-import 'package:flutter_canastas/data/http_manager/app_http_manager.dart';
-import 'package:flutter_canastas/domain/entities/temporada_entity.dart';
-import 'package:flutter_canastas/domain/entities/vehiculo_temporada_entity.dart';
-import 'package:flutter_canastas/domain/repositories/temporada_repository.dart';
-import 'package:flutter_canastas/ui/utils/preferencias_usuario.dart';
+import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
+import 'package:flutter_actividades/domain/entities/temporada_entity.dart';
+import 'package:flutter_actividades/domain/entities/vehiculo_temporada_entity.dart';
+import 'package:flutter_actividades/domain/repositories/temporada_repository.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';
 
 class TemporadaRepositoryImplementation extends TemporadaRepository {

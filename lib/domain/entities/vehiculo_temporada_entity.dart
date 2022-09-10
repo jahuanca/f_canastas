@@ -3,7 +3,7 @@
 //     final vehiculoEntity = vehiculoEntityFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:flutter_canastas/domain/entities/personal_vehiculo_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_vehiculo_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'vehiculo_temporada_entity.g.dart';

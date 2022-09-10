@@ -1,6 +1,6 @@
 
 import 'dart:io';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_varios_entity.dart';
+import 'package:flutter_actividades/domain/entities/pre_tarea_esparrago_varios_entity.dart';
 
 abstract class PreTareaEsparragoVariosRepository{
 

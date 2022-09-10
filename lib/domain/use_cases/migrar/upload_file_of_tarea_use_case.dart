@@ -1,8 +1,8 @@
 
 import 'dart:io';
 
-import 'package:flutter_canastas/domain/entities/tarea_proceso_entity.dart';
-import 'package:flutter_canastas/domain/repositories/tarea_proceso_repository.dart';
+import 'package:flutter_actividades/domain/entities/tarea_proceso_entity.dart';
+import 'package:flutter_actividades/domain/repositories/tarea_proceso_repository.dart';
 
 class UploadFileOfTareaUseCase{
   final TareaProcesoRepository _tareaProcesoRepository;

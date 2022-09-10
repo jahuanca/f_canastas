@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter_canastas/core/strings.dart';
-import 'package:flutter_canastas/data/http_manager/app_http_manager.dart';
-import 'package:flutter_canastas/domain/entities/pre_tarea_esparrago_varios_entity.dart';
-import 'package:flutter_canastas/domain/repositories/pre_tarea_esparrago_varios_repository.dart';
-import 'package:flutter_canastas/ui/utils/preferencias_usuario.dart';
+import 'package:flutter_actividades/core/entregable/strings.dart';
+import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
+import 'package:flutter_actividades/domain/entities/pre_tarea_esparrago_varios_entity.dart';
+import 'package:flutter_actividades/domain/repositories/pre_tarea_esparrago_varios_repository.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
