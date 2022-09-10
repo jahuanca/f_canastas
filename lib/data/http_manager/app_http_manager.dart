@@ -12,7 +12,7 @@ import 'package:flutter_actividades/data/http_manager/http_manager.dart';
 import 'package:flutter_actividades/domain/exceptions/app_exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const timeout = Duration(seconds: 45);
+const timeout = Duration(seconds: 60);
 
 class AppHttpManager implements HttpManager {
   @override

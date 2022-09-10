@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/core/encuesta/dimens.dart';
@@ -119,22 +120,22 @@ class EncuestasPage extends StatelessWidget {
                                             Expanded(child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Icon(Icons.check, color: successColor,),
-                                                Text('${_.encuestas[index].cantidadEnviados ?? 0}', style: TextStyle(
-                                                  color: successColor,
+                                                Icon(Icons.textsms_outlined, color: infoColor,),
+                                                SizedBox(width: 10,),
+                                                Text('${_.encuestas[index].cantidadTotal ?? 0}', style: TextStyle(
+                                                  color: infoColor,
                                                   fontWeight: FontWeight.bold
                                                 ),)
                                               ],
                                             ), flex: 1),
 
+                                            if((_.encuestas[index].hayPendientes ?? false))
                                             Expanded(child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Icon(Icons.warning_amber_rounded , color: alertColor,),
-                                                Text('${(_.encuestas[index].cantidadTotal ?? 0) - (_.encuestas[index].cantidadEnviados ?? 0)}', style: TextStyle(
-                                                  color: alertColor,
-                                                  fontWeight: FontWeight.bold
-                                                ),)
+                                                Bounce(
+                                                  infinite: false,
+                                                  child: Icon(Icons.error , color: alertColor,)),
                                               ],
                                             ), flex: 1),
                                           ],

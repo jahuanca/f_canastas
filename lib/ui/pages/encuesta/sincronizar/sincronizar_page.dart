@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/sincronizar/sincronizar_controller.dart';
 import 'package:flutter_actividades/ui/widgets/encuesta/app_bar_widget.dart';
 import 'package:get/get.dart';
@@ -60,7 +61,9 @@ class SincronizarPage extends StatelessWidget {
             builder: (_) => _.validando
                 ? Container(
                     color: Colors.black45,
-                    child: Center(child: CircularProgressIndicator()),
+                    child: Center(child: CircularProgressIndicator(
+                      color: primaryColor,
+                    )),
                   )
                 : Container(),
           ),

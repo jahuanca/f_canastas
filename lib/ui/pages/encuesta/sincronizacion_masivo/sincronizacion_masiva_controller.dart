@@ -5,6 +5,7 @@ import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/update_en
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/get_all_encuesta_detalle_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/migracion_encuesta_detalle_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/update_encuesta_detalle_use_case.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:get/get.dart';
 
 class SincronizacionMasivaController extends GetxController{
@@ -47,7 +48,7 @@ class SincronizacionMasivaController extends GetxController{
     detalles=await _getAllEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}');
     
     detalles.forEach((e) {
-      if(e.estadoLocal==0) detallesSinSincronizar.add(e);
+      if(e.estadoLocal!=1) detallesSinSincronizar.add(e);
     });
     validando=false;
     update(['validando', 'data']);
@@ -55,7 +56,25 @@ class SincronizacionMasivaController extends GetxController{
     super.onReady();
   }
 
+
+
   Future<void> goSincronizacion() async{
+
+
+    final bandera=await basicDialog(
+      Get.overlayContext,
+      'Alerta',
+      '¿Esta seguro de copiar la siguiente tarea?',
+      'Si',
+      'No',
+      () async {
+        Get.back(result: true);
+      },
+      () => Get.back(result: false),
+    );
+
+    if(!bandera) return;
+
     validando=true;
     update(['validando']);
 
@@ -86,7 +105,7 @@ class SincronizacionMasivaController extends GetxController{
       );
     }
     detallesSinSincronizar.clear();
-    encuestaSeleccionada.cantidadEnviados=sincronizados;
+    encuestaSeleccionada.hayPendientes=(sincronizados == detallesSinSincronizar?.length);
     /* encuestaSeleccionada.cantidadTotal=detalles.length+1; */
     
     await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);

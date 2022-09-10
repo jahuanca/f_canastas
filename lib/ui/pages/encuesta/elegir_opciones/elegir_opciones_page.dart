@@ -19,10 +19,13 @@ class ElegirOpcionesPage extends StatelessWidget {
     return GetBuilder<ElegirOpcionesController>(
       id: 'encuesta',
       builder: (_) => Scaffold(
-        floatingActionButton: _.editable ? FloatingActionButton(
+        floatingActionButton: _.editable
+            ? FloatingActionButton(
+                backgroundColor: primaryColor,
                 onPressed: _.goGuardar,
                 child: Icon(Icons.check),
-              ): Container(),
+              )
+            : Container(),
         appBar: getAppBarChoose(
             '${_.personalSeleccionado?.codigoempresa} - ${_.personalSeleccionado?.nombreCompleto}',
             [],
@@ -49,13 +52,13 @@ class ElegirOpcionesPage extends StatelessWidget {
   Widget _opcionManual() {
     return GetBuilder<ElegirOpcionesController>(
       id: 'opciones',
-
       builder: (_) => _.opcionElegida?.id == -1
           ? Container(
-            padding: EdgeInsets.only(left: 15, right: 15, top: 25, bottom: 15),
+              padding:
+                  EdgeInsets.only(left: 15, right: 15, top: 25, bottom: 15),
               child: InputLabelWidget(
                 /* label: 'Detalle', */
-                onChanged: _.changeOpcionManual ,
+                onChanged: _.changeOpcionManual,
                 initialValue: _.opcionManual,
                 maxLength: 100,
                 hintText: 'Describa su respuesta',
@@ -63,33 +66,6 @@ class ElegirOpcionesPage extends StatelessWidget {
               ),
             )
           : Container(),
-    );
-  }
-
-  Widget _personal(PersonalEmpresaEntity personal, Size size) {
-    return Container(
-      height: size.height * 0.1,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Icon(Icons.person),
-          ),
-          Expanded(
-            flex: 6,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                personal.nombreCompleto ?? 'Sin titulo',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -187,7 +163,8 @@ class ElegirOpcionesPage extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               _.opciones[index].descripcion ?? '',
-                              style: TextStyle(fontSize: 14, color: Colors.black54),
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.black54),
                             ),
                           ),
                         ],
@@ -196,8 +173,9 @@ class ElegirOpcionesPage extends StatelessWidget {
                     ),
                   ],
                 ),
-               if(_.opcionElegida?.id==-1 && _.opciones[index].id==_.opcionElegida?.id)
-               _opcionManual()
+                if (_.opcionElegida?.id == -1 &&
+                    _.opciones[index].id == _.opcionElegida?.id)
+                  _opcionManual()
               ],
             ),
           ),

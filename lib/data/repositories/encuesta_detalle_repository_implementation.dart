@@ -76,7 +76,7 @@ class EncuestaDetalleRepositoryImplementation
   Future<void> update(
       String box, EncuestaDetalleEntity encuesta, int index) async {
     var tareas = await Hive.openBox<EncuestaDetalleEntity>('${box}_encuesta_sincronizar');
-    await tareas.put(index, encuesta);
+    await tareas?.put(index, encuesta);
     await tareas.close();
     return;
   }

@@ -3,6 +3,7 @@ import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
 import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:get/get.dart';
 
@@ -38,6 +39,12 @@ class ElegirOpcionesController extends GetxController {
           opcion: 'OTRA',
           descripcion: 'Redacte su respuesta',
         ));
+        int index=opciones.indexWhere( (e)=> e.id==opcionElegida.id);
+        if(index!=-1 && (encuestaSeleccionada.estado ?? 0)!=0){
+          EncuestaOpcionesEntity opcionCambiada=opciones[index];
+          opciones.removeAt(index);
+          opciones.insert(0, opcionCambiada);
+        }
         update(['opciones']);
       }
       if (Get.arguments['personal_seleccionado'] != null) {
@@ -56,6 +63,12 @@ class ElegirOpcionesController extends GetxController {
   }
 
   void goGuardar(){
+
+    if(opcionElegida.id==-1 && [null, ''].contains(opcionManual)){
+      toastError('Error', 'Debe ingresar una respuesta.');
+      return;
+    }
+
     EncuestaDetalleEntity detalle=EncuestaDetalleEntity(
       codigoempresa: personalSeleccionado.codigoempresa,
       idencuesta: encuestaSeleccionada.id,

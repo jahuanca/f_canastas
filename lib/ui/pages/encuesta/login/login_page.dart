@@ -53,7 +53,9 @@ class LoginPage extends StatelessWidget {
                 id: 'validando',
                 builder: (_)=> _.validando ? Container(
                   color: Colors.black45,
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: CircularProgressIndicator(
+                    color: primaryColor,
+                  )),
                 ) : Container(),
               ),
             ],

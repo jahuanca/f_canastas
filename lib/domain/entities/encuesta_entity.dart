@@ -23,7 +23,7 @@ class EncuestaEntity {
     this.key,
     this.firmasupervisor,
     this.cantidadTotal,
-    this.cantidadEnviados,
+    this.hayPendientes,
     this.anio,
   }) {
     detalles = [];
@@ -61,7 +61,7 @@ class EncuestaEntity {
   @HiveField(15)
   int cantidadTotal;
   @HiveField(16)
-  int cantidadEnviados;
+  bool hayPendientes;
   @HiveField(17)
   String anio;
 
@@ -116,8 +116,8 @@ class EncuestaEntity {
         estado: json['estado'] == null ? null : json["estado"],
         cantidadTotal:
             json['cantidadTotal'] == null ? null : json["cantidadTotal"],
-        cantidadEnviados:
-            json['cantidadEnviados'] == null ? null : json["cantidadEnviados"],
+        hayPendientes:
+            json['hayPendientes'] == null ? null : json["hayPendientes"],
         key: json['key'] == null ? null : json["key"],
         anio: json['anio'] == null ? null : json["anio"],
         createdAt: json['createdAt'] == null
@@ -138,7 +138,7 @@ class EncuestaEntity {
         "idtipoencuesta": idtipoencuesta,
         "periodo": periodo,
         "cantidadTotal": cantidadTotal,
-        "cantidadEnviados": cantidadEnviados,
+        "hayPendientes": hayPendientes,
         "fechaInicio": fechaInicio?.toIso8601String(),
         "fechaFin": fechaFin?.toIso8601String(),
         "titulo": titulo,

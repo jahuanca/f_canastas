@@ -41,7 +41,7 @@ class EncuestaDetallePage extends StatelessWidget {
             body: _.detalles.length == 0
                 ? _emptyContainer(size)
                 : GetBuilder<EncuestaDetalleController>(
-                    id: 'detalles',
+                    id: 'detalles', 
                     builder: (_) => ListView.builder(
                       itemCount: _.detalles.length,
                       itemBuilder: (context, index) =>
@@ -182,7 +182,7 @@ class EncuestaDetallePage extends StatelessWidget {
                     id: 'numero_documento',
                     builder: (_) => CircleAvatar(
                       backgroundColor:
-                          _.numeroDocumento == null ? Colors.grey : infoColor,
+                          _.numeroDocumento == null ? Colors.grey : primaryColor,
                       child: IconButton(
                         icon: Icon(
                           Icons.check,

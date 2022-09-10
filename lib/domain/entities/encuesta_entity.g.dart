@@ -32,7 +32,7 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       key: fields[13] as int,
       firmasupervisor: fields[14] as String,
       cantidadTotal: fields[15] as int,
-      cantidadEnviados: fields[16] as int,
+      hayPendientes: fields[16] as bool,
       anio: fields[17] as String,
     );
   }
@@ -72,7 +72,7 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       ..writeByte(15)
       ..write(obj.cantidadTotal)
       ..writeByte(16)
-      ..write(obj.cantidadEnviados)
+      ..write(obj.hayPendientes)
       ..writeByte(17)
       ..write(obj.anio);
   }

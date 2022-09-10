@@ -172,10 +172,11 @@ class EncuestaDetalleController extends GetxController {
     if(result){
       await _deleteEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key);
       if(detalles[index]?.estadoLocal==1){
-        encuestaSeleccionada.cantidadEnviados=(encuestaSeleccionada.cantidadEnviados ?? 1) - 1;
+        enviados=enviados-1;
       }
       detalles.removeAt(index);
       encuestaSeleccionada.cantidadTotal=detalles.length;
+      encuestaSeleccionada.hayPendientes=(enviados == detalles?.length);
       await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
       update(['detalles']);
     }
@@ -225,7 +226,7 @@ class EncuestaDetalleController extends GetxController {
         await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]);
         encuestaSeleccionada.cantidadTotal=detalles.length;
         enviados=enviados+1;
-        encuestaSeleccionada.cantidadEnviados=enviados;
+        encuestaSeleccionada.hayPendientes=(enviados == detalles?.length);
         await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
       }
       if(res?.estado=='R'){
