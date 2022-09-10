@@ -1,4 +1,4 @@
-import 'package:flutter_actividades/core/entregable/colors.dart';
+import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/core/encuesta/dimens.dart';
 import 'package:flutter_actividades/core/encuesta/styles.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';

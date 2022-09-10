@@ -40,12 +40,11 @@ class EncuestasController extends GetxController{
 
   Future<void> goDetalleEncuesta(int index) async{
     EncuestaDetalleBinding().dependencies();
-    final result=await Get.to(()=> EncuestaDetallePage(),
+    await Get.to(()=> EncuestaDetallePage(),
       arguments: {
         'encuesta': encuestas[index],
       }
     );
-
     update(['encuestas']);
   }
 

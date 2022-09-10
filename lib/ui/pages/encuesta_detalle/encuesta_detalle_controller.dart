@@ -67,7 +67,7 @@ class EncuestaDetalleController extends GetxController {
         .execute('${encuestaSeleccionada.id}');
 
     detalles.forEach((e) {
-      if(e?.estado=='1') enviados=enviados+1;
+      if(e?.estadoLocal=='1') enviados=enviados+1;
     });
     personal = await _getPersonalsEmpresaUseCase.execute();
     opciones = await _getAllEncuestaOpcionesByValuesUseCase
@@ -123,6 +123,7 @@ class EncuestaDetalleController extends GetxController {
           await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
           update(['detalles']);
         }
+        update(['detalles']);
       }
       else{
         toastError('Error', 'No se encontró el numero de documento.');
@@ -176,7 +177,7 @@ class EncuestaDetalleController extends GetxController {
       }
       detalles.removeAt(index);
       encuestaSeleccionada.cantidadTotal=detalles.length;
-      encuestaSeleccionada.hayPendientes=(enviados == detalles?.length);
+      encuestaSeleccionada.hayPendientes=((detalles.length ?? 0) > enviados);
       await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
       update(['detalles']);
     }
@@ -226,7 +227,7 @@ class EncuestaDetalleController extends GetxController {
         await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]);
         encuestaSeleccionada.cantidadTotal=detalles.length;
         enviados=enviados+1;
-        encuestaSeleccionada.hayPendientes=(enviados == detalles?.length);
+        encuestaSeleccionada.hayPendientes=((detalles.length ?? 0) > enviados);
         await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
       }
       if(res?.estado=='R'){

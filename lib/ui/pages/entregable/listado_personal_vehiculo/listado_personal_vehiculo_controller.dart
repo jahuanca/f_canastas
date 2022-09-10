@@ -7,8 +7,6 @@ import 'package:flutter_actividades/domain/use_cases/agregar_persona/get_persona
 import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/create_personal_vehiculo_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/delete_personal_vehiculo_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/get_all_personal_vehiculo_use_case.dart';
-import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/update_personal_vehiculo_use_case.dart';
-import 'package:flutter_actividades/domain/use_cases/entregable/vehiculo_temporada/update_vehiculo_temporada_use_case.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_actividades/domain/entities/actividad_entity.dart';
 import 'package:flutter_actividades/domain/entities/labor_entity.dart';
@@ -38,12 +36,10 @@ class ListadoPersonalVehiculoController extends GetxController
   List<LaborEntity> labores = [];
 
   final GetPersonalsEmpresaUseCase _getPersonalsEmpresaUseCase;
-  final UpdateVehiculoTemporadaUseCase _updateVehiculoTemporadaUseCase;
   final GetPersonalVehiculoByTemporadaUseCase
       _getPersonalVehiculoByTemporadaUseCase;
   final GetAllPersonalVehiculoUseCase _getAllPersonalVehiculoUseCase;
   final CreatePersonalVehiculoUseCase _createPersonalVehiculoUseCase;
-  final UpdatePersonalVehiculoUseCase _updatePersonalVehiculoUseCase;
   final DeletePersonalVehiculoUseCase _deletePersonalVehiculoUseCase;
   final GetActividadsUseCase _getActividadsUseCase;
   final GetLaborsUseCase _getLaborsUseCase;
@@ -61,9 +57,8 @@ class ListadoPersonalVehiculoController extends GetxController
       this._getLaborsUseCase,
       this._createPersonalVehiculoUseCase,
       this._getAllPersonalVehiculoUseCase,
-      this._updatePersonalVehiculoUseCase,
       this._deletePersonalVehiculoUseCase,
-      this._updateVehiculoTemporadaUseCase);
+    );
 
   @override
   void onInit() async {

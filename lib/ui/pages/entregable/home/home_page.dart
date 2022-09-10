@@ -37,7 +37,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 flex: 1),
-            //TODO: AUTODETECTAR INTERNET, VERIFICAR CON EL SERVIDOR
             Flexible(
                 child: GetBuilder<HomeController>(
                   id: 'version',

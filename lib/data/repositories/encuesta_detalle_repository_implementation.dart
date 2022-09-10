@@ -162,7 +162,7 @@ class EncuestaDetalleRepositoryImplementation
           await http.Response.fromStream(await request.send());
       print("Result: ${response.statusCode}");
       log(response.body);
-      EncuestaDetalleEntity respuesta =
+      /* EncuestaDetalleEntity respuesta = */
           EncuestaDetalleEntity.fromJson(jsonDecode(response.body));
       /* encuesta.firmasupervisor = respuesta.firmasupervisor; */
       return encuesta;

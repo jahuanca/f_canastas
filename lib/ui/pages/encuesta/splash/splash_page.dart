@@ -1,5 +1,4 @@
 import 'package:flutter_actividades/core/encuesta/colors.dart';
-import 'package:flutter_actividades/core/encuesta/strings.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/splash/splash_controller.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:flutter/material.dart';

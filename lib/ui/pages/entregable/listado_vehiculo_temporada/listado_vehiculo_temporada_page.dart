@@ -100,7 +100,6 @@ class ListadoVehiculoTemporadaPage extends StatelessWidget {
                           builder: (_) => _.vehiculosRegistrados.isEmpty
                               ? EmptyDataWidget(
                                   titulo: 'No existen registros.',
-                                  //TODO: crear boton de refrescar
 
                                   onPressed: () => _.getVehiculos(),
                                   size: size)

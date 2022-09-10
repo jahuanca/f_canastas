@@ -64,7 +64,7 @@ class SincronizacionMasivaController extends GetxController{
     final bandera=await basicDialog(
       Get.overlayContext,
       'Alerta',
-      '¿Esta seguro de copiar la siguiente tarea?',
+      '¿Esta seguro de realizar la sincronización?',
       'Si',
       'No',
       () async {

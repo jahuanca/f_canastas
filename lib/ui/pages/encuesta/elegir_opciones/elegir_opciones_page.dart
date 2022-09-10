@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/core/encuesta/dimens.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
-import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/elegir_opciones/elegir_opciones_controller.dart';
 import 'package:flutter_actividades/ui/widgets/encuesta/app_bar_widget.dart';
 import 'package:flutter_actividades/ui/widgets/encuesta/input_label_widget.dart';

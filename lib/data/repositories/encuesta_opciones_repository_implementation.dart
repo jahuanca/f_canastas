@@ -57,17 +57,7 @@ class EncuestaOpcionesRepositoryImplementation extends EncuestaOpcionesRepositor
   Future<void> update(EncuestaOpcionesEntity EncuestaOpciones) async {
     Box<EncuestaOpcionesEntity> dataHive =
         await Hive.openBox<EncuestaOpcionesEntity>('encuesta_opciones_sincronizar');
-    int keyObtenido = -1;
-
-    for (var i = 0; i < dataHive.keys.length; i++) {
-      var k=dataHive.keys.elementAt(i);
-      var v=dataHive.get(k);
-      /* if(v.id == EncuestaOpciones.id && (v.sizeVehiculos != EncuestaOpciones.sizeVehiculos || v.sizePersonalRegistrados != EncuestaOpciones.sizePersonalRegistrados)){
-        keyObtenido=k;
-        break;
-      } */
-    }
-    
+    int keyObtenido = -1;    
     if (keyObtenido != -1) {
       await dataHive.put(keyObtenido, EncuestaOpciones);
     }

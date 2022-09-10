@@ -129,7 +129,7 @@ class EncuestasPage extends StatelessWidget {
                                               ],
                                             ), flex: 1),
 
-                                            if((_.encuestas[index].hayPendientes ?? false))
+                                            if((_.encuestas[index]?.hayPendientes ?? false))
                                             Expanded(child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [

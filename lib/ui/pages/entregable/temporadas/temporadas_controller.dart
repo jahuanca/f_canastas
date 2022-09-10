@@ -1,5 +1,4 @@
 
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_actividades/di/listado_vehiculo_temporada_binding.dart';
@@ -100,7 +99,6 @@ class TemporadasController extends GetxController {
       );
     })).then((geteditimage) async {
       if (geteditimage != null) {
-        File _image = geteditimage[0];
 
         /* temporadas[index].pathUrl = _image.path;
         temporadas[index].estadoLocal = 'A'; */

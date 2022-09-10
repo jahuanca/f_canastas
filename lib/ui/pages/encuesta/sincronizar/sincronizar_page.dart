@@ -26,15 +26,6 @@ class SincronizarPage extends StatelessWidget {
                 GetBuilder<SincronizarController>(
                   id: 'sedes',
                   builder: (_)=> itemSincronizado(size, 'sedes', 'Sedes' , _.sedes.length.toString() )),
-                /* GetBuilder<SincronizarController>(
-                  id: 'vehiculos',
-                  builder: (_)=> itemSincronizado(size, 'vehiculos', 'Vehiculos' , _.vehiculos.length.toString() )),
-                GetBuilder<SincronizarController>(
-                  id: 'temporadas',
-                  builder: (_)=> itemSincronizado(size, 'temporadas', 'Temporadas' , _.temporadas.length.toString() )),
-                GetBuilder<SincronizarController>(
-                  id: 'productos',
-                  builder: (_)=> itemSincronizado(size, 'productos', 'Productos' , _.productos.length.toString() )), */
                 GetBuilder<SincronizarController>(
                   id: 'usuarios',
                   builder: (_)=> itemSincronizado(size, 'usuarios', 'Usuarios' , _.usuarios.length.toString() )),
@@ -44,9 +35,6 @@ class SincronizarPage extends StatelessWidget {
                 GetBuilder<SincronizarController>(
                   id: 'puntos_entrega',
                   builder: (_)=> itemSincronizado(size, 'puntos_entrega', 'Puntos de entrega' , _.puntosEntrega.length.toString() )),
-                /*GetBuilder<SincronizarController>(
-                  id: 'personal_vehiculo',
-                  builder: (_)=> itemSincronizado(size, 'personal_vehiculo', 'Personal vehiculo' , _.cantidadPersonalVehiculo.toString() )), */
                 GetBuilder<SincronizarController>(
                   id: 'encuesta',
                   builder: (_)=> itemSincronizado(size, 'encuesta', 'Encuesta' , _.encuestas.length.toString() )),

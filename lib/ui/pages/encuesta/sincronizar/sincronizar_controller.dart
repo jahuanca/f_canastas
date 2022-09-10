@@ -97,16 +97,11 @@ class SincronizarController extends GetxController{
     super.onReady();
     
     await getSedes();
-    //await getVehiculos();
-
-    //await getProductos();
-    //await getTemporadas();
     await getUsuarios();
     await getPersonal();
     await getPuntosEntregas();
     await getEncuestas();
     await getEncuestaOpciones();
-    //await getPersonalVehiculoByTemporada();
 
     validando=false;
     update(['validando']);
@@ -144,6 +139,7 @@ class SincronizarController extends GetxController{
     for (int i = 0; i < encuestas.length; i++) {
       int key=await encuestasSincronizados.add(encuestas[i]);
       encuestas[i].key=key;
+      encuestas[i].hayPendientes=false;
       encuestasSincronizados.put(key, encuestas[i]);
     }
     //await encuestasSincronizados.addAll(encuestas);

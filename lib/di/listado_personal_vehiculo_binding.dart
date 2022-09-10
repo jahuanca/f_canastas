@@ -40,8 +40,7 @@ class ListadoPersonalVehiculoBinding extends Bindings{
     Get.lazyPut<DeletePersonalVehiculoUseCase>(() => DeletePersonalVehiculoUseCase(Get.find()));
     Get.lazyPut<GetPersonalVehiculoByTemporadaUseCase>(() => GetPersonalVehiculoByTemporadaUseCase(Get.find()));
 
-
-    Get.lazyPut<ListadoPersonalVehiculoController>(() => ListadoPersonalVehiculoController(Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
+    Get.lazyPut<ListadoPersonalVehiculoController>(() => ListadoPersonalVehiculoController(Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find(), Get.find()));
     
   }
 

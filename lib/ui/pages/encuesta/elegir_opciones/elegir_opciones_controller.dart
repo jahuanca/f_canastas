@@ -39,7 +39,7 @@ class ElegirOpcionesController extends GetxController {
           opcion: 'OTRA',
           descripcion: 'Redacte su respuesta',
         ));
-        int index=opciones.indexWhere( (e)=> e.id==opcionElegida.id);
+        int index=opciones.indexWhere( (e)=> e.id==opcionElegida?.id);
         if(index!=-1 && (encuestaSeleccionada.estado ?? 0)!=0){
           EncuestaOpcionesEntity opcionCambiada=opciones[index];
           opciones.removeAt(index);

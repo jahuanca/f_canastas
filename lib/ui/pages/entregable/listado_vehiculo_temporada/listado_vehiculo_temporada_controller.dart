@@ -208,7 +208,7 @@ class ListadoVehiculoTemporadaController extends GetxController
   }
 
   Future<String> validarParaAprobar(int index) async {
-    VehiculoTemporadaEntity tarea = vehiculosRegistrados[index];
+    /* VehiculoTemporadaEntity tarea = vehiculosRegistrados[index]; */
     /* if (tarea.sizeDetails == null || tarea.sizeDetails == 0) {
       return 'No se puede aprobar una actividad que no tiene personal';
     } */
