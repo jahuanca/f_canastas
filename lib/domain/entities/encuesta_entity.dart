@@ -77,6 +77,25 @@ class EncuestaEntity {
     }
   }
 
+  get name{
+    switch(periodo?.toLowerCase()){
+      case 'enero': return '01$anio';
+      case 'febrero': return '02$anio';
+      case 'marzo': return '03$anio';
+      case 'abril': return '04$anio';
+      case 'mayo': return '05$anio';
+      case 'junio': return '06$anio';
+      case 'julio': return '07$anio';
+      case 'agosto': return '08$anio';
+      case 'setiembre': return '09$anio';
+      case 'octubre': return '10$anio';
+      case 'noviembre': return '11$anio';
+      case 'diciembre': return '12$anio';
+
+      default:  return periodo+anio;
+    }
+  }
+
   factory EncuestaEntity.fromJson(Map<String, dynamic> json) => EncuestaEntity(
         id: json['id'] == null ? null : json["id"],
         idusuario: json['idusuario'] == null ? null : json["idusuario"],

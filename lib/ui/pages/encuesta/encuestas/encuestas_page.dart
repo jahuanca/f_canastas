@@ -69,7 +69,7 @@ class EncuestasPage extends StatelessWidget {
                                         child: Container(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                              '${_.encuestas[index].periodo}: ${formatoFechaExplore(_.encuestas[index].fechaInicio, 0, 0)} - ${formatoFechaExplore(_.encuestas[index].fechaFin, 0, 0)}' ??
+                                              '${_.encuestas[index]?.name}: ${formatoFechaExplore(_.encuestas[index].fechaInicio, 0, 0)} - ${formatoFechaExplore(_.encuestas[index].fechaFin, 0, 0)}' ??
                                                   '',
                                             style: TextStyle(
                                               color: Colors.black87
