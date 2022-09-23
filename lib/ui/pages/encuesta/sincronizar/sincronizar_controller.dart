@@ -34,6 +34,7 @@ import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_cultivos_us
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_punto_entregas_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_subdivisions_use_case.dart';
 import 'package:flutter_actividades/domain/sincronizar/get_labors_use_case.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:flutter_actividades/ui/utils/string_formats.dart';
 import 'package:get/get.dart';
@@ -95,18 +96,29 @@ class SincronizarController extends GetxController{
   @override
   void onReady()async{
     super.onReady();
-    
-    await getSedes();
-    await getUsuarios();
-    await getPersonal();
-    await getPuntosEntregas();
-    await getEncuestas();
-    await getEncuestaOpciones();
 
-    validando=false;
-    update(['validando']);
-    await setLog();
-    PreferenciasUsuario().offLine=true;
+    try {
+      await getSedes();
+      await getUsuarios();
+      await getPersonal();
+      await getPuntosEntregas();
+      await getEncuestas();
+      /* await getEncuestaOpciones(); */
+      await setLog();
+      PreferenciasUsuario().offLine=true;
+      validando=false;
+      update(['validando']);
+
+    } catch (e) {
+      print(e.toString());
+      PreferenciasUsuario().offLine=true;
+      validando=false;
+      update(['validando']);
+      toastError('Error', 'No se pudo sincronizar la información. vuelva a intentarlo.');
+      
+      
+    }
+    
   }
 
   Future<bool> getClientes()async{

@@ -86,12 +86,12 @@ TextStyle drawerOptionDarkStyle() {
       color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400);
 }
 
-TextStyle primaryHintStyle() {
+TextStyle primaryHintStyle({double fontSize=secondTextSize}) {
   return TextStyle(
       color: PreferenciasUsuario().modoDark
           ? primaryTextDarkColor
           : primaryTextColor,
-      fontSize: secondTextSize,
+      fontSize: fontSize,
       fontWeight: FontWeight.w300);
 }
 

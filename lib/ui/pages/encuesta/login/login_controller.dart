@@ -150,7 +150,8 @@ class LoginController extends GetxController{
     SincronizarBinding(type:1).dependencies();
     await Get.to( ()=> SincronizarPage());
     await getLogs();
-    
+
+    PreferenciasUsuario().offLine=true;
     puntosEntrega=await _getPuntoEntregasUseCase.execute();
     if(puntosEntrega.isNotEmpty){
       puntoEntregaSelected=puntosEntrega.first;

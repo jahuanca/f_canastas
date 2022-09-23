@@ -21,6 +21,7 @@ class InputLabelWidget extends StatelessWidget {
   final void Function() onTap;
   final void Function() onPressedIconOverlay;
   final IconData iconOverlay;
+  final double textSize;
 
   InputLabelWidget({
       @required this.hintText,
@@ -37,6 +38,7 @@ class InputLabelWidget extends StatelessWidget {
       this.onChanged,
       this.error,
       this.onTap,
+      this.textSize,
     }
   );
   
@@ -81,7 +83,7 @@ class InputLabelWidget extends StatelessWidget {
                     counterText: '',
                     counterStyle: TextStyle(fontSize: 0),
                     hintText: hintText,
-                    hintStyle: primaryHintStyle(),
+                    hintStyle: primaryHintStyle(fontSize: textSize),
                   ),
                   controller: textEditingController,
                   onChanged: onChanged,

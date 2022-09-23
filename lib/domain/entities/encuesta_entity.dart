@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart';
+import 'package:flutter_actividades/domain/entities/pregunta_entity.dart';
 import 'package:hive/hive.dart';
 
 part 'encuesta_entity.g.dart';
@@ -8,9 +9,9 @@ part 'encuesta_entity.g.dart';
 class EncuestaEntity {
   EncuestaEntity({
     this.id,
-    this.detalles,
     this.idusuario,
     this.idtipoencuesta,
+    this.anio,
     this.periodo,
     this.fechaInicio,
     this.fechaFin,
@@ -20,11 +21,12 @@ class EncuestaEntity {
     this.estado,
     this.createdAt,
     this.updatedAt,
+    this.detalles,
     this.key,
     this.firmasupervisor,
     this.cantidadTotal,
     this.hayPendientes,
-    this.anio,
+    this.preguntas,
   }) {
     detalles = [];
   }
@@ -64,6 +66,8 @@ class EncuestaEntity {
   bool hayPendientes;
   @HiveField(17)
   String anio;
+  @HiveField(18)
+  List<PreguntaEntity> preguntas;
 
   get tipoEncuesta {
     switch (idtipoencuesta) {
@@ -130,6 +134,10 @@ class EncuestaEntity {
             ? []
             : List<EncuestaDetalleEntity>.from(
                 json["detalles"].map((x) => EncuestaDetalleEntity.fromJson(x))),
+        preguntas: json['Pregunta'] == null
+            ? []
+            : List<PreguntaEntity>.from(
+                json["Pregunta"].map((x) => PreguntaEntity.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -153,6 +161,9 @@ class EncuestaEntity {
         "detalles": detalles == null
             ? []
             : List<dynamic>.from(detalles.map((x) => x.toJson())),
+        "Pregunta": preguntas == null
+            ? []
+            : List<dynamic>.from(preguntas.map((x) => x.toJson())),
       };
 }
 

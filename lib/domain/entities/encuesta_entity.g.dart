@@ -20,6 +20,7 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       id: fields[0] as int,
       idusuario: fields[1] as int,
       idtipoencuesta: fields[2] as int,
+      anio: fields[17] as String,
       periodo: fields[3] as String,
       fechaInicio: fields[4] as DateTime,
       fechaFin: fields[5] as DateTime,
@@ -33,14 +34,14 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       firmasupervisor: fields[14] as String,
       cantidadTotal: fields[15] as int,
       hayPendientes: fields[16] as bool,
-      anio: fields[17] as String,
+      preguntas: (fields[18] as List)?.cast<PreguntaEntity>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, EncuestaEntity obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(18)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -74,7 +75,9 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       ..writeByte(16)
       ..write(obj.hayPendientes)
       ..writeByte(17)
-      ..write(obj.anio);
+      ..write(obj.anio)
+      ..writeByte(18)
+      ..write(obj.preguntas);
   }
 
   @override

@@ -122,7 +122,7 @@ class EncuestasPage extends StatelessWidget {
                                               children: [
                                                 Icon(Icons.textsms_outlined, color: infoColor,),
                                                 SizedBox(width: 10,),
-                                                Text('${_.encuestas[index].cantidadTotal ?? 0}', style: TextStyle(
+                                                Text('${_.encuestas[index].preguntas.length ?? 0}', style: TextStyle(
                                                   color: infoColor,
                                                   fontWeight: FontWeight.bold
                                                 ),)

@@ -1,9 +1,11 @@
 
 import 'package:flutter_actividades/di/elegir_opciones_binding.dart';
+import 'package:flutter_actividades/di/preguntas_binding.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
 import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_encuesta_entity.dart';
 import 'package:flutter_actividades/domain/use_cases/agregar_persona/get_personal_empresa_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/update_encuesta_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/create_encuesta_detalle_use_case.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/m
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/update_encuesta_detalle_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_opciones/get_all_encuesta_opciones_by_values_use_case.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/elegir_opciones/elegir_opciones_page.dart';
+import 'package:flutter_actividades/ui/pages/encuesta/preguntas/preguntas_page.dart';
 import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
@@ -35,7 +38,7 @@ class EncuestaDetalleController extends GetxController {
 
   EncuestaEntity encuestaSeleccionada;
   List<EncuestaOpcionesEntity> opciones = [];
-  List<EncuestaDetalleEntity> detalles = [];
+  List<PersonalEncuestaEntity> detalles = [];
 
   EncuestaDetalleController(
       this._getPersonalsEmpresaUseCase,
@@ -63,8 +66,8 @@ class EncuestaDetalleController extends GetxController {
     validando = true;
     update(['validando']);
     detalles=[];
-    detalles = await _getAllEncuestaDetalleUseCase
-        .execute('${encuestaSeleccionada.id}');
+    /* detalles = await _getAllEncuestaDetalleUseCase
+        .execute('${encuestaSeleccionada.id}'); */
     print(detalles.length);
     print('ID: '+encuestaSeleccionada.id.toString());
     detalles.forEach((e) {
@@ -81,6 +84,7 @@ class EncuestaDetalleController extends GetxController {
   }
 
   Future<void> goLectorCode() async {
+    
     String barcode;
 
     barcode = await FlutterBarcodeScanner.scanBarcode(
@@ -90,9 +94,6 @@ class EncuestaDetalleController extends GetxController {
 
   Future<void> validarCodigo(String barcode) async{
     if (barcode != '-1') {
-
-      
-
       int index = personal
           .indexWhere((e) => e.nrodocumento == barcode.toString().trim());
       if (index != -1) {
@@ -105,20 +106,29 @@ class EncuestaDetalleController extends GetxController {
           return;
         }
 
-        ElegirOpcionesBinding().dependencies();
+        PreguntasBinding().dependencies();
+        final result= await Get.to<PersonalEncuestaEntity>(()=> PreguntasPage(),
+          arguments: {
+            'encuesta': encuestaSeleccionada,
+            'personal_seleccionado': personal[index] 
+          }
+        );
+
+        /* ElegirOpcionesBinding().dependencies();
         final result = await Get.to<EncuestaDetalleEntity>(
             () => ElegirOpcionesPage(),
             arguments: {
               'encuesta': encuestaSeleccionada,
               'opciones': opciones,
               'personal_seleccionado': personal[index]
-            });
+            }); */
+        
 
         if (result != null) {
-          int key = await _createEncuestaDetalleUseCase.execute(
+          /* int key = await _createEncuestaDetalleUseCase.execute(
               '${encuestaSeleccionada.id}', result);
           result.key = key;
-          result.estadoLocal=0;
+          result.estadoLocal=0; */
           detalles.add(result);
           encuestaSeleccionada.cantidadTotal=detalles.length;
           encuestaSeleccionada.hayPendientes=true;
@@ -132,27 +142,19 @@ class EncuestaDetalleController extends GetxController {
     }
   }
 
-  void goResponder() {
-    ElegirOpcionesBinding().dependencies();
-    Get.to(() => ElegirOpcionesPage(), arguments: {
-      'encuesta': encuestaSeleccionada,
-      'opciones': opciones,
-    });
-  }
-
   Future<void> goEditar(int index) async {
-    ElegirOpcionesBinding().dependencies();
-    final result = await Get.to<EncuestaDetalleEntity>(
-        () => ElegirOpcionesPage(),
-        arguments: {
-          'encuesta': encuestaSeleccionada,
-          'encuesta_detalle': detalles[index],
-          'opciones': opciones,
-          'personal_seleccionado': detalles[index].personal,
-        });
 
+    PreguntasBinding().dependencies();
+        final result= await Get.to<PersonalEncuestaEntity>(()=> PreguntasPage(),
+          arguments: {
+            'encuesta': encuestaSeleccionada,
+            'personal_seleccionado': personal[index],
+            'detalle': detalles[index],
+          }
+        );
+    
     if (result != null) {
-      await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', result.key, result);
+      /* await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', result.key, result); */
       detalles[index] = result;
       update(['detalles']);
     }
@@ -224,8 +226,8 @@ class EncuestaDetalleController extends GetxController {
 
       if(res?.estado=='A'){
         toastExito('Éxito', 'Sincronizado con éxito.');
-        detalles[index].estadoLocal=1;
-        await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]);
+        /* detalles[index].estadoLocal=1;
+        await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]); */
         encuestaSeleccionada.cantidadTotal=detalles.length;
         enviados=enviados+1;
         encuestaSeleccionada.hayPendientes=((detalles.length ?? 0) > enviados);
@@ -233,8 +235,8 @@ class EncuestaDetalleController extends GetxController {
       }
       if(res?.estado=='R'){
         toastError('Error', 'Ya se encuentra en la base de datos.');
-        detalles[index].estadoLocal=-1;
-        await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]);
+        /* detalles[index].estadoLocal=-1;
+        await _updateEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}', detalles[index].key, detalles[index]); */
       }
       validando=false;
       update(['detalles', 'validando']);

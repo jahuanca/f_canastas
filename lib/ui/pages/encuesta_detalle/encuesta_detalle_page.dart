@@ -105,8 +105,8 @@ class EncuestaDetallePage extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(top: 5),
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${_.detalles[index].opcionEncuesta.opcion}',
+                          child: Text(''
+                            /* '${_.detalles[index].opcionEncuesta.opcion}' */,
                             style: TextStyle(
                               color: Colors.black87,
                               fontSize: 13,
@@ -116,12 +116,34 @@ class EncuestaDetallePage extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(top: 5),
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            formatoFechaHora(_.detalles[index].hora),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black54,
-                            ),
+                          child: Row(
+                            
+                            children: [
+
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  '${_.detalles[index].respuestas.length}/${_.encuestaSeleccionada.preguntas.length} rtas.',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: 
+                                    _.detalles[index].respuestas.length < _.encuestaSeleccionada.preguntas.length
+                                    ? dangerColor : successColor,
+                                  ),
+                                ),
+                              ),
+
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  formatoFechaHora(_.detalles[index].fecha),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

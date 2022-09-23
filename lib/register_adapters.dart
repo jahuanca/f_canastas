@@ -3,6 +3,10 @@ import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
 import 'package:flutter_actividades/domain/entities/log_entity.dart';
+import 'package:flutter_actividades/domain/entities/opcion_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_encuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/pregunta_entity.dart';
+import 'package:flutter_actividades/domain/entities/respuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_perfil_entity.dart';
 import 'package:hive/hive.dart';
@@ -81,6 +85,13 @@ registerAdapter(){
   Hive.registerAdapter(EncuestaEntityAdapter());
   Hive.registerAdapter(EncuestaOpcionesEntityAdapter());
   Hive.registerAdapter(EncuestaDetalleEntityAdapter());
+
+  Hive.registerAdapter(PreguntaEntityAdapter());
+  Hive.registerAdapter(OpcionEntityAdapter());
+  Hive.registerAdapter(RespuestaEntityAdapter());
+  Hive.registerAdapter(PersonalEncuestaEntityAdapter());
+
+  /* Hive.registerAdapter(EncuestaDetalleEntityAdapter()); */
 
 }
 
