@@ -8,7 +8,7 @@ part of 'respuesta_entity.dart';
 
 class RespuestaEntityAdapter extends TypeAdapter<RespuestaEntity> {
   @override
-  final int typeId = 52;
+  final int typeId = 53;
 
   @override
   RespuestaEntity read(BinaryReader reader) {
@@ -17,52 +17,55 @@ class RespuestaEntityAdapter extends TypeAdapter<RespuestaEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return RespuestaEntity(
-      id: fields[0] as int,
-      idsubdivision: fields[1] as int,
-      idusuario: fields[2] as int,
-      idencuesta: fields[3] as int,
-      idpregunta: fields[4] as int,
-      idopcion: fields[5] as int,
-      codigoempresa: fields[6] as String,
-      opcionmanual: fields[7] as String,
-      fecha: fields[8] as DateTime,
-      hora: fields[9] as DateTime,
-      descripcion: fields[10] as String,
-      observacion: fields[11] as String,
-      estado: fields[12] as String,
+      id: fields[11] as int,
+      key: fields[0] as int,
+      codigoempresa: fields[1] as String,
+      detalles: (fields[2] as List)?.cast<DetalleRespuestaEntity>(),
+      fecha: fields[3] as DateTime,
+      hora: fields[12] as DateTime,
+      idencuesta: fields[5] as int,
+      personal: fields[6] as PersonalEmpresaEntity,
+      idunidad: fields[7] as int,
+      idetapa: fields[8] as int,
+      idcampo: fields[9] as int,
+      idturno: fields[10] as int,
+      idpregunta: fields[13] as int,
+      estadoLocal: fields[4] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, RespuestaEntity obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(14)
       ..writeByte(0)
-      ..write(obj.id)
+      ..write(obj.key)
       ..writeByte(1)
-      ..write(obj.idsubdivision)
-      ..writeByte(2)
-      ..write(obj.idusuario)
-      ..writeByte(3)
-      ..write(obj.idencuesta)
-      ..writeByte(4)
-      ..write(obj.idpregunta)
-      ..writeByte(5)
-      ..write(obj.idopcion)
-      ..writeByte(6)
       ..write(obj.codigoempresa)
-      ..writeByte(7)
-      ..write(obj.opcionmanual)
-      ..writeByte(8)
+      ..writeByte(2)
+      ..write(obj.detalles)
+      ..writeByte(3)
       ..write(obj.fecha)
+      ..writeByte(4)
+      ..write(obj.estadoLocal)
+      ..writeByte(5)
+      ..write(obj.idencuesta)
+      ..writeByte(6)
+      ..write(obj.personal)
+      ..writeByte(7)
+      ..write(obj.idunidad)
+      ..writeByte(8)
+      ..write(obj.idetapa)
       ..writeByte(9)
-      ..write(obj.hora)
+      ..write(obj.idcampo)
       ..writeByte(10)
-      ..write(obj.descripcion)
+      ..write(obj.idturno)
       ..writeByte(11)
-      ..write(obj.observacion)
+      ..write(obj.id)
       ..writeByte(12)
-      ..write(obj.estado);
+      ..write(obj.hora)
+      ..writeByte(13)
+      ..write(obj.idpregunta);
   }
 
   @override

@@ -86,9 +86,9 @@ Drawer getDrawer(Size size, GlobalKey<ScaffoldState> scaffoldKey) {
                 size, Icons.home, 'Inicio', () => _.goHome(scaffoldKey), ),
             _itemDrawer(
                 size, Icons.checklist_outlined, 'Encuestas', () => _.goEncuestas(scaffoldKey)),
-            _itemDrawer(
-                size, Icons.construction, 'Herramientas', _.goMisEventos),
-            _itemDrawer(size, Icons.settings, 'Configuración', _.goMisEventos),
+            /* _itemDrawer(
+                size, Icons.construction, 'Herramientas', _.goMisEventos), */
+            _itemDrawer(size, Icons.settings, 'Información encuestado', _.goInformacionEncuestado),
             _itemDrawer(
                 size, Icons.exit_to_app, 'Cerrar sesión', _.cerrarSesion),
           ],

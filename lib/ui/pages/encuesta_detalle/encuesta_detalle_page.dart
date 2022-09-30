@@ -41,11 +41,11 @@ class EncuestaDetallePage extends StatelessWidget {
             body: GetBuilder<EncuestaDetalleController>(
               id: 'detalles',
               builder: (_)=> Container(
-                child:  _.detalles.length == 0
+                child:  _.personalRespondido.length == 0
                   ? _emptyContainer(size)
                   : GetBuilder<EncuestaDetalleController>(
                       builder: (_) => ListView.builder(
-                        itemCount: _.detalles.length,
+                        itemCount: _.personalRespondido.length,
                         itemBuilder: (context, index) =>
                             _itemPersona(size, index),
                       ),
@@ -78,13 +78,13 @@ class EncuestaDetallePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             width: size.width,
             decoration: BoxDecoration(
-                color: _.detalles[index]?.estadoLocal == 0
+                color: _.personalRespondido[index]?.estadoLocal == 0
                     ? Colors.white
-                    : _.detalles[index]?.estadoLocal == -1 ? alertColor.withAlpha(50) : successColor.withAlpha(50),
+                    : _.personalRespondido[index]?.estadoLocal == -1 ? alertColor.withAlpha(50) : successColor.withAlpha(50),
                 border: Border.all(
-                    color: _.detalles[index]?.estadoLocal == 0
+                    color: _.personalRespondido[index]?.estadoLocal == 0
                         ? primaryColor
-                        : _.detalles[index]?.estadoLocal == -1 ? alertColor : successColor),
+                        : _.personalRespondido[index]?.estadoLocal == -1 ? alertColor : successColor),
                 borderRadius: BorderRadius.circular(borderRadius)),
             child: Row(
               children: [
@@ -95,7 +95,7 @@ class EncuestaDetallePage extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(top: 5),
                           child: Text(
-                            '${_.detalles[index].codigoempresa} - ${_.detalles[index].personal.nombreCompleto}',
+                            '${_.personalRespondido[index].codigoempresa} - ${_.personalRespondido[index].personal?.nombreCompleto}',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.black,
@@ -103,14 +103,12 @@ class EncuestaDetallePage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: 5),
+                          padding: EdgeInsets.only(top: 15, bottom: 10),
                           alignment: Alignment.centerLeft,
-                          child: Text(''
-                            /* '${_.detalles[index].opcionEncuesta.opcion}' */,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 13,
-                            ),
+                          child: Row(
+                            children: [
+                              _.personalRespondido[index].getEstadoIcon(),
+                            ],
                           ),
                         ),
                         Container(
@@ -123,11 +121,11 @@ class EncuestaDetallePage extends StatelessWidget {
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  '${_.detalles[index].respuestas.length}/${_.encuestaSeleccionada.preguntas.length} rtas.',
+                                  '${_.personalRespondido[index].respuestas.length}/${_.encuestaSeleccionada.preguntas.length} rtas.',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: 
-                                    _.detalles[index].respuestas.length < _.encuestaSeleccionada.preguntas.length
+                                    _.personalRespondido[index].respuestas.length < _.encuestaSeleccionada.preguntas.length
                                     ? dangerColor : successColor,
                                   ),
                                 ),
@@ -136,7 +134,7 @@ class EncuestaDetallePage extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  formatoFechaHora(_.detalles[index].fecha),
+                                  formatoFechaHora(_.personalRespondido[index].fecha),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.black54,
@@ -155,7 +153,7 @@ class EncuestaDetallePage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          if ([-1,0].contains(_.detalles[index]?.estadoLocal))
+                          if (_.personalRespondido[index]?.getPendientesPorMigrar())
                             CircleAvatar(
                               child: IconButton(
                                   onPressed: () => _.goSincronizar(index),
@@ -166,13 +164,13 @@ class EncuestaDetallePage extends StatelessWidget {
                           CircleAvatar(
                             child: IconButton(
                                 onPressed: () => _.goEliminar(index),
-                                icon: Icon(_.detalles[index]?.estadoLocal == 0
+                                icon: Icon(_.personalRespondido[index]?.estadoLocal == 0
                                     ? Icons.close
-                                    : _.detalles[index]?.estadoLocal == -1 ? Icons.close :Icons.delete_outline),
-                                color: _.detalles[index]?.estadoLocal == 0
+                                    : _.personalRespondido[index]?.estadoLocal == -1 ? Icons.close :Icons.delete_outline),
+                                color: _.personalRespondido[index]?.estadoLocal == 0
                                     ? Colors.white
                                     : dangerColor),
-                            backgroundColor: _.detalles[index]?.estadoLocal == 0
+                            backgroundColor: _.personalRespondido[index]?.estadoLocal == 0
                                 ? dangerColor
                                 : Colors.white,
                           ),

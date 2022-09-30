@@ -1,10 +1,14 @@
 
+import 'package:flutter_actividades/core/encuesta/strings.dart';
 import 'package:flutter_actividades/domain/entities/actividad_entity.dart';
 import 'package:flutter_actividades/domain/entities/centro_costo_entity.dart';
 import 'package:flutter_actividades/domain/entities/cliente_entity.dart';
 import 'package:flutter_actividades/domain/entities/cultivo_entity.dart';
+import 'package:flutter_actividades/domain/entities/encuesta_campo_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/encuesta_etapa_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
+import 'package:flutter_actividades/domain/entities/encuesta_turno_entity.dart';
 import 'package:flutter_actividades/domain/entities/log_entity.dart';
 import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
 import 'package:flutter_actividades/domain/entities/pre_tareo_proceso_entity.dart';
@@ -14,26 +18,31 @@ import 'package:flutter_actividades/domain/entities/subdivision_entity.dart';
 import 'package:flutter_actividades/domain/entities/labor_entity.dart';
 import 'package:flutter_actividades/domain/entities/temporada_entity.dart';
 import 'package:flutter_actividades/domain/entities/tipo_tarea_entity.dart';
+import 'package:flutter_actividades/domain/entities/unidad_negocio_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
 import 'package:flutter_actividades/domain/entities/vehiculo_entity.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_all_personal_vehiculo_by_temporada_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_clientes_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_current_time_world_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_pre_tareo_procesos_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_productos_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_temporadas_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_tipo_tareas_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_usuarios_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_vehiculos_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_campos_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_etapas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_unidad_negocios_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_actividads_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_all_personal_vehiculo_by_temporada_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_clientes_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_current_time_world_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_pre_tareo_procesos_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_productos_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_temporadas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_tipo_tareas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_usuarios_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_vehiculos_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/agregar_persona/get_personal_empresa_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_actividads_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/get_all_encuesta_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_opciones/get_all_encuesta_opciones_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_centro_costos_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_cultivos_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_punto_entregas_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/nueva_tarea/get_subdivisions_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_labors_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_labors_use_case.dart';
 import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:flutter_actividades/ui/utils/string_formats.dart';
@@ -50,6 +59,10 @@ class SincronizarController extends GetxController{
   List<PersonalEmpresaEntity> personal=[];
   List<PreTareoProcesoEntity> preTareos=[];
   List<ClienteEntity> clientes=[];
+  List<UnidadNegocioEntity> unidadesNegocio=[];
+  List<EncuestaEtapaEntity> encuestaEtapas=[];
+  List<EncuestaCampoEntity> encuestaCampos=[];
+  List<EncuestaTurnoEntity> encuestaTurnos=[];
   List<PuntoEntregaEntity> puntosEntrega=[];
   int cantidadPersonalVehiculo=0;
   List<VehiculoEntity> vehiculos=[];
@@ -79,8 +92,35 @@ class SincronizarController extends GetxController{
   final GetPuntoEntregasUseCase _getPuntoEntregasUseCase;
   final GetAllEncuestaUseCase _getAllEncuestaUseCase;
   final GetAllEncuestaOpcionesUseCase _getAllEncuestaOpcionesUseCase;
+  final GetUnidadNegociosUseCase _getUnidadNegociosUseCase;
+  final GetEncuestaEtapasUseCase _getEncuestaEtapasUseCase;
+  final GetEncuestaCamposUseCase _getEncuestaCamposUseCase;
+  final GetEncuestaTurnosUseCase _getEncuestaTurnosUseCase;
 
-  SincronizarController(this._getActividadsUseCase, this._getSubdivisonsUseCase, this._getLaborsUseCase, this._getUsuariosUseCase, this._getPersonalsEmpresaUseCase, this._getCentroCostosUseCase, this._getCurrentTimeWorldUseCase, this._getPreTareoProcesosUseCase, this._getCultivosUseCase, this._getClientesUseCase, this._getTipoTareasUseCase, this._getVehiculosUseCase, this._getTemporadasUseCase, this._getProductosUseCase, this._getPuntoEntregasUseCase, this._getAllPersonalVehiculoByTemporadaUseCase, this._getAllEncuestaUseCase, this._getAllEncuestaOpcionesUseCase);
+  SincronizarController(
+      this._getActividadsUseCase,
+      this._getSubdivisonsUseCase,
+      this._getLaborsUseCase,
+      this._getUsuariosUseCase,
+      this._getPersonalsEmpresaUseCase,
+      this._getCentroCostosUseCase, 
+      this._getCurrentTimeWorldUseCase, 
+      this._getPreTareoProcesosUseCase, 
+      this._getCultivosUseCase, 
+      this._getClientesUseCase, 
+      this._getTipoTareasUseCase, 
+      this._getVehiculosUseCase, 
+      this._getTemporadasUseCase, 
+      this._getProductosUseCase, 
+      this._getPuntoEntregasUseCase, 
+      this._getAllPersonalVehiculoByTemporadaUseCase, 
+      this._getAllEncuestaUseCase, 
+      this._getAllEncuestaOpcionesUseCase,
+      this._getUnidadNegociosUseCase,
+      this._getEncuestaEtapasUseCase,
+      this._getEncuestaCamposUseCase,
+      this._getEncuestaTurnosUseCase,
+    );
 
   bool validando=false;
 
@@ -103,6 +143,10 @@ class SincronizarController extends GetxController{
       await getPersonal();
       await getPuntosEntregas();
       await getEncuestas();
+      await getUnidadesNegocio();
+      await getEncuestaCampo();
+      await getEncuestaEtapa();
+      await getEncuestaTurno();
       /* await getEncuestaOpciones(); */
       await setLog();
       PreferenciasUsuario().offLine=true;
@@ -115,10 +159,52 @@ class SincronizarController extends GetxController{
       validando=false;
       update(['validando']);
       toastError('Error', 'No se pudo sincronizar la información. vuelva a intentarlo.');
-      
-      
     }
     
+  }
+
+  Future<bool> getEncuestaTurno()async{
+    encuestaTurnos=await _getEncuestaTurnosUseCase.execute();
+    Box<EncuestaTurnoEntity> datos = await Hive.openBox<EncuestaTurnoEntity>(boxes['encuesta_turno']);
+    
+    await datos?.clear();
+    await datos.addAll(encuestaTurnos);
+    await datos.close();
+    update(['encuesta_turno']);
+    return true;
+  }
+
+  Future<bool> getEncuestaCampo()async{
+    encuestaCampos=await _getEncuestaCamposUseCase.execute();
+    Box<EncuestaCampoEntity> datos = await Hive.openBox<EncuestaCampoEntity>(boxes['encuesta_campo']);
+    
+    await datos?.clear();
+    await datos.addAll(encuestaCampos);
+    await datos.close();
+    update(['encuesta_campo']);
+    return true;
+  }
+
+  Future<bool> getEncuestaEtapa()async{
+    encuestaEtapas=await _getEncuestaEtapasUseCase.execute();
+    Box<EncuestaEtapaEntity> datos = await Hive.openBox<EncuestaEtapaEntity>(boxes['encuesta_etapa']);
+    
+    await datos?.clear();
+    await datos.addAll(encuestaEtapas);
+    await datos.close();
+    update(['encuesta_etapa']);
+    return true;
+  }
+
+  Future<bool> getUnidadesNegocio()async{
+    unidadesNegocio=await _getUnidadNegociosUseCase.execute();
+    Box<UnidadNegocioEntity> unidadesSincronizados = await Hive.openBox<UnidadNegocioEntity>(boxes['unidad_negocio']);
+    
+    await unidadesSincronizados?.clear();
+    await unidadesSincronizados.addAll(unidadesNegocio);
+    await unidadesSincronizados.close();
+    update(['unidad_negocio']);
+    return true;
   }
 
   Future<bool> getClientes()async{

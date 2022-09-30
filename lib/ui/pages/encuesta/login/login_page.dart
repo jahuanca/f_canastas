@@ -141,21 +141,21 @@ class LoginPage extends StatelessWidget {
             flex: 1,
             child: Center(
               child: GetBuilder<LoginController>(
-                    id: 'puntos_entrega',
+                    id: 'subdivision',
                     builder: (_) => DropdownSearchWidget(
                       labelText: 'name',
                       labelValue: '_id',
-                      selectedItem: _.puntoEntregaSelected == null ? null : {
-                        'name' : '${_.puntoEntregaSelected.nombre}',
-                        '_id' : _.puntoEntregaSelected.id,
+                      selectedItem: _.subdivisionSelected == null ? null : {
+                        'name' : '${_.subdivisionSelected.subdivision} - ${_.subdivisionSelected.detallesubdivision}',
+                        '_id' : _.subdivisionSelected.idsubdivision,
                       },
-                      onChanged: _.changePuntoEntrega,
-                      items: controller.puntosEntrega.length == 0
+                      onChanged: _.changeSubdivision,
+                      items: _.subdivisions.length == 0
                           ? []
-                          : controller.puntosEntrega
+                          : _.subdivisions
                               .map((e) => {
-                                    'name': '${e.nombre}',
-                                    '_id': e.id,
+                                    'name': '${e.subdivision} - ${e.detallesubdivision}',
+                                    '_id': e.idsubdivision,
                                   })
                               .toList(),
                     ),

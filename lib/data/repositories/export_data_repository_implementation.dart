@@ -46,8 +46,8 @@ class ExportDataRepositoryImplementation extends ExportDataRepository{
     sheetObject.insertRowIterables(listaEncabezados(data.toJson()), 1);
     sheetObject.insertRowIterables(listaItem(data.toJson()), 2);
     sheetObject.insertRowIterables(listaEncabezados(data.toJson()), 4);
-    for (var i = 0; i < data.detalles.length ; i++) {
-      var d=data.detalles[i];
+    for (var i = 0; i < data.personalRespondido.length ; i++) {
+      var d=data.personalRespondido[i];
       sheetObject.insertRowIterables(listaItem(d.toJson()), i+ initialRow);
     }
 

@@ -1,12 +1,17 @@
 
+import 'package:flutter_actividades/domain/entities/encuesta_campo_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/encuesta_etapa_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
+import 'package:flutter_actividades/domain/entities/encuesta_turno_entity.dart';
 import 'package:flutter_actividades/domain/entities/log_entity.dart';
 import 'package:flutter_actividades/domain/entities/opcion_entity.dart';
-import 'package:flutter_actividades/domain/entities/personal_encuesta_entity.dart';
-import 'package:flutter_actividades/domain/entities/pregunta_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_respuestas_entity.dart';
 import 'package:flutter_actividades/domain/entities/respuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/pregunta_entity.dart';
+import 'package:flutter_actividades/domain/entities/detalle_respuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/unidad_negocio_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_perfil_entity.dart';
 import 'package:hive/hive.dart';
@@ -89,7 +94,13 @@ registerAdapter(){
   Hive.registerAdapter(PreguntaEntityAdapter());
   Hive.registerAdapter(OpcionEntityAdapter());
   Hive.registerAdapter(RespuestaEntityAdapter());
-  Hive.registerAdapter(PersonalEncuestaEntityAdapter());
+  Hive.registerAdapter(DetalleRespuestaEntityAdapter());
+
+  Hive.registerAdapter(EncuestaEtapaEntityAdapter());
+  Hive.registerAdapter(EncuestaCampoEntityAdapter());
+  Hive.registerAdapter(UnidadNegocioEntityAdapter());
+  Hive.registerAdapter(EncuestaTurnoEntityAdapter());
+  Hive.registerAdapter(PersonalRespuestasEntityAdapter());
 
   /* Hive.registerAdapter(EncuestaDetalleEntityAdapter()); */
 

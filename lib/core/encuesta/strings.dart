@@ -6,3 +6,10 @@ const String nameApp='Encuestas';
 const String serverUrl = 'http://$serverUrlCorta';
 const String rImages = 'assets/encuesta/images/';
 const bool mostrarLog=false;
+
+const boxes={
+  'unidad_negocio': '${nameApp}_unidad_negocio_sincronizar',
+  'encuesta_etapa': '${nameApp}_encuesta_etapa_sincronizar',
+  'encuesta_campo': '${nameApp}_encuesta_campo_sincronizar',
+  'encuesta_turno': '${nameApp}_encuesta_turno_sincronizar',
+};

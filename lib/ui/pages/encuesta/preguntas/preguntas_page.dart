@@ -16,16 +16,157 @@ class PreguntasPage extends StatelessWidget {
       init: controller,
       builder: (_) => Scaffold(
         backgroundColor: secondColor,
-        floatingActionButton: FloatingActionButton(onPressed: _.goReturn,
+        floatingActionButton: FloatingActionButton(
+          onPressed: _.goReturn,
           backgroundColor: primaryColor,
-          child: Icon(Icons.check, color: Colors.white,),
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
         ),
         appBar: getAppBarChoose(_.personalSeleccionado.nombreCompleto ?? '', [],
             true, 1, Alignment.centerLeft, 20),
         body: ListView.builder(
-          itemCount: _.encuestaSeleccionada.preguntas.length,
-          itemBuilder: (context, index) =>
-              Container(child: _itemPregunta(index)),
+          itemCount: _.encuestaSeleccionada.preguntas.length + 1,
+          itemBuilder: (context, index) => (index == 0)
+              ? informacionEncuestador()
+              : Container(child: _itemPregunta(index - 1)),
+        ),
+      ),
+    );
+  }
+
+  Widget informacionEncuestador() {
+    return GetBuilder<PreguntasController>(
+      id: 'informacion',
+      builder: (_) => GestureDetector(
+        onTap: _.goInformacion,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: Container(
+            decoration: BoxDecoration(
+                color: cardColor,
+                border: Border.all(color: primaryColor),
+                borderRadius: BorderRadius.circular(borderRadius)),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    top: 10,
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    'Información',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            'U. negocio',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        flex: 1),
+                    Expanded(
+                        child: Container(
+                          child: Text(_.unidadNegocioEntity?.descripcion ?? ''),
+                        ),
+                        flex: 2),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          child: Text('Etapa',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        flex: 1),
+                    Expanded(
+                        child: Container(
+                          child: Text(
+                            _.encuestaEtapaEntity?.descripcion ?? '',
+                          ),
+                        ),
+                        flex: 2),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            'Campo',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        flex: 1),
+                    Expanded(
+                        child: Container(
+                          child: Text(_.encuestaCampoEntity?.descripcion ?? ''),
+                        ),
+                        flex: 2),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          child: Text('Turno', 
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        flex: 1),
+                    Expanded(
+                        child: Container(
+                          child: Text(_.encuestaTurnoEntity?.descripcion ?? ''),
+                        ),
+                        flex: 2),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -36,7 +177,12 @@ class PreguntasPage extends StatelessWidget {
       padding: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 10),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: primaryColor),
+          border: Border.all(
+              color: (controller.encuestaSeleccionada.preguntas[index]?.idRespuestaDB != null)
+                  ? successColor
+                  : primaryColor
+                  ,
+                  ),
           borderRadius: BorderRadius.circular(borderRadius),
           color: Colors.white,
         ),
@@ -80,7 +226,8 @@ class PreguntasPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    _itemBorrar(index),
+                    if (_.encuestaSeleccionada.preguntas[index]?.idRespuestaDB == null)
+                      _itemBorrar(index),
                     _itemPreguntas(
                         index, _.encuestaSeleccionada.preguntas[index].opciones)
                   ],
@@ -89,17 +236,22 @@ class PreguntasPage extends StatelessWidget {
     );
   }
 
-  Widget _itemBorrar(int index){
+  Widget _itemBorrar(int index) {
     return GetBuilder<PreguntasController>(
-      id: 'pregunta_$index',
-      builder: (_)=> _.encuestaSeleccionada.preguntas[index].indexSelected != null ? Container(
-          padding: EdgeInsets.only(right: 10),
-          alignment: Alignment.centerRight,
-          child: ElevatedButton(
-            
-            onPressed: ()=> _.changeSelected(index, null), 
-            child: Text('Borrar respuesta')),
-        ): Container());
+        id: 'pregunta_$index',
+        builder: (_) =>
+            _.encuestaSeleccionada.preguntas[index].indexesSelected.length > 0
+                ? Container(
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                        onPressed: (_.encuestaSeleccionada.preguntas[index]?.idRespuestaDB != null)
+                            ? null
+                            : () => _.changeSelected(index, null)
+                            ,
+                        child: Text('Borrar respuesta')),
+                  )
+                : Container());
   }
 
   Widget _itemPreguntas(int index, List<OpcionEntity> opciones) {
@@ -132,7 +284,10 @@ class PreguntasPage extends StatelessWidget {
   Widget _itemOpcion(OpcionEntity e, int index) {
     return GetBuilder<PreguntasController>(
       builder: (_) => GestureDetector(
-        onTap: () => _.changeSelected(index, e.id),
+        onTap: (_.encuestaSeleccionada.preguntas[index]?.idRespuestaDB != null)
+            ? null
+            : () => _.changeSelected(index, e.id)
+            ,
         child: Column(
           children: [
             Container(
@@ -144,17 +299,15 @@ class PreguntasPage extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       child: Icon(
-                        e.id ==
-                                    _.encuestaSeleccionada.preguntas[index]
-                                        .indexSelected ??
+                        _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id) ??
                                 false
                             ? Icons.circle
                             : Icons.circle_outlined,
-                        color: e.id ==
-                                    _.encuestaSeleccionada.preguntas[index]
-                                        .indexSelected ??
+                        color: _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id) ??
                                 false
-                            ? primaryColor
+                            ? (controller.encuestaSeleccionada.preguntas[index]?.idRespuestaDB != null)
+                                ? successColor
+                                : primaryColor
                             : Colors.black38,
                         size: 15,
                       ),
@@ -168,17 +321,15 @@ class PreguntasPage extends StatelessWidget {
                         e.opcion,
                         style: TextStyle(
                           fontSize: 13,
-                          fontWeight: e.id ==
-                                      _.encuestaSeleccionada.preguntas[index]
-                                          .indexSelected ??
+                          fontWeight: _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id)  ??
                                   false
                               ? FontWeight.w500
                               : FontWeight.w400,
-                          color: e.id ==
-                                      _.encuestaSeleccionada.preguntas[index]
-                                          .indexSelected ??
+                          color: _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id) ??
                                   false
-                              ? primaryColor
+                              ? (controller.encuestaSeleccionada.preguntas[index]?.idRespuestaDB != null)
+                                  ? successColor
+                                  : primaryColor
                               : Colors.black,
                         ),
                       ),
@@ -188,7 +339,7 @@ class PreguntasPage extends StatelessWidget {
               ),
             ),
             if (e.id == -1 &&
-                _.encuestaSeleccionada.preguntas[index].indexSelected == e.id)
+                _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id))
               _opcionManual(index, e.id),
           ],
         ),
@@ -198,13 +349,18 @@ class PreguntasPage extends StatelessWidget {
 
   Widget _opcionManual(int indexPregunta, int indexOpcion) {
     return GetBuilder<PreguntasController>(
-      
-      builder: (_)=> Container(
+      builder: (_) => Container(
         padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: InputLabelWidget(
-          textSize: 14,
-          onChanged: (value)=> _.onChangeOpcionManual(indexPregunta, value),
-          hintText: 'Ingrese su respuesta'),
+            textSize: 14,
+            onChanged:
+                (_.encuestaSeleccionada.preguntas[indexPregunta]?.idRespuestaDB != null)
+                    ? null
+                    : (value) => _.onChangeOpcionManual(indexPregunta, value),
+            initialValue:
+                _.encuestaSeleccionada.preguntas[indexPregunta].opcionManual ??
+                    '',
+            hintText: 'Ingrese su respuesta'),
       ),
     );
   }

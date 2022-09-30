@@ -29,13 +29,14 @@ class PreguntaEntityAdapter extends TypeAdapter<PreguntaEntity> {
       createdAt: fields[9] as DateTime,
       updatedAt: fields[10] as DateTime,
       opciones: (fields[11] as List)?.cast<OpcionEntity>(),
+      indexesSelected: (fields[12] as List)?.cast<int>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, PreguntaEntity obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -59,7 +60,9 @@ class PreguntaEntityAdapter extends TypeAdapter<PreguntaEntity> {
       ..writeByte(10)
       ..write(obj.updatedAt)
       ..writeByte(11)
-      ..write(obj.opciones);
+      ..write(obj.opciones)
+      ..writeByte(12)
+      ..write(obj.indexesSelected);
   }
 
   @override

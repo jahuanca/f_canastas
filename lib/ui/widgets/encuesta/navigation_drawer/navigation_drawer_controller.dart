@@ -6,9 +6,11 @@ import 'package:flutter_actividades/data/repositories/encuesta/storage_repositor
 import 'package:flutter_actividades/di/aprobar_binding.dart';
 import 'package:flutter_actividades/di/encuestas_binding.dart';
 import 'package:flutter_actividades/di/home_binding.dart';
+import 'package:flutter_actividades/di/informacion_encuestado_binding.dart';
 import 'package:flutter_actividades/di/listado_personal_vehiculo_binding.dart';
 import 'package:flutter_actividades/di/migrar_binding.dart';
 import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
+import 'package:flutter_actividades/ui/pages/encuesta/informacion_encuestado/informacion_encuestado_page.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/login/login_page.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/navigation/navigation_controller.dart';
 import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
@@ -68,9 +70,9 @@ class NavigationDrawerController extends GetxController{
     Get.find<NavigationController>().eventos(0, scaffoldKey);
   }
 
-  void goMisEventos(){
-    /* MisEventosBinding().dependencies();
-    Get.to(()=> MisEventosPage()); */
+  void goInformacionEncuestado(){
+    InformacionEncuestadoBinding().dependencies();
+    Get.to(()=> InformacionEncuestadoPage());
   }
 
 

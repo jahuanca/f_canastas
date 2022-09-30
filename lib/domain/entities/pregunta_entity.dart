@@ -24,7 +24,9 @@ class PreguntaEntity {
         this.createdAt,
         this.updatedAt,
         this.opciones,
-        this.indexSelected,
+        this.indexesSelected,
+        this.estadoLocal,
+        this.idRespuestaDB,
     });
 
     @HiveField(0)
@@ -51,11 +53,16 @@ class PreguntaEntity {
     DateTime updatedAt;
     @HiveField(11)
     List<OpcionEntity> opciones;
-    int indexSelected;
+    @HiveField(12)
+    List<int> indexesSelected;
     String opcionManual;
+    int estadoLocal;
+    int idRespuestaDB;
 
     factory PreguntaEntity.fromJson(Map<String, dynamic> json) => PreguntaEntity(
         id: json["id"] == null ? null : json["id"],
+        idRespuestaDB: json["idRespuestaDB"] == null ? null : json["idRespuestaDB"],
+        estadoLocal: json["estadoLocal"] == null ? null : json["estadoLocal"],
         idusuario: json["idusuario"] == null ? null : json["idusuario"],
         idencuesta: json["idencuesta"] == null ? null : json["idencuesta"],
         idtipopregunta: json["idtipopregunta"] == null ? null : json["idtipopregunta"],
@@ -63,7 +70,7 @@ class PreguntaEntity {
         descripcion: json["descripcion"] == null ? null : json["descripcion"],
         observacion: json["observacion"] == null ? null : json["observacion"],
         estado: json["estado"] == null ? null : json["estado"],
-        indexSelected: json["indexSelected"] == null ? null : json["indexSelected"],
+        indexesSelected: json["indexesSelected"] == null ? [] : List<int>.from(json["indexesSelected"].map((x)=> x)),
         permitirOpcionManual: json["permitirOpcionManual"] == null ? null : json["permitirOpcionManual"],
         createdAt: json["createdAt"] == null ? null : DateTime?.tryParse(json["createdAt"]),
         updatedAt: json["updatedAt"] == null ? null : DateTime?.tryParse(json["updatedAt"]),
@@ -75,6 +82,8 @@ class PreguntaEntity {
 
     Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
+        "idRespuestaDB": idRespuestaDB == null ? null : idRespuestaDB,
+        "estadoLocal": estadoLocal == null ? null : estadoLocal,
         "idusuario": idusuario == null ? null : idusuario,
         "idencuesta": idencuesta == null ? null : idencuesta,
         "idtipopregunta": idtipopregunta == null ? null : idtipopregunta,
@@ -82,7 +91,7 @@ class PreguntaEntity {
         "descripcion": descripcion == null ? null : descripcion,
         "observacion": observacion == null ? null : observacion,
         "estado": estado == null ? null : estado,
-        "indexSelected": indexSelected == null ? null : indexSelected,
+        "indexesSelected": indexesSelected == null ? [] : List<dynamic>.from(indexesSelected.map((e) => e)),
         "permitirOpcionManual": permitirOpcionManual == null ? null : permitirOpcionManual,
         "createdAt": createdAt == null ? null : createdAt?.toIso8601String(),
         "updatedAt": updatedAt == null ? null : updatedAt?.toIso8601String(),

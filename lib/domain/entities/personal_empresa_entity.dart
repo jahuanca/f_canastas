@@ -58,13 +58,13 @@ class PersonalEmpresaEntity {
         apellidomaterno: json["apellidomaterno"],
         nombres: json["nombres"],
         nrodocumento: json["nrodocumento"],
-        fechamod: DateTime?.parse(json["fechamod"]),
+        fechamod: DateTime?.tryParse(json["fechamod"]),
         idtipodocumento: json["idtipodocumento"],
-        fechaingreso: DateTime?.parse(json["fechaingreso"]),
+        fechaingreso: DateTime?.tryParse(json["fechaingreso"]),
         bloqueado: json["bloqueado"],
         fechacese: json['fechacese'] == null
             ? null
-            : DateTime?.parse(json["fechacese"]),
+            : DateTime?.tryParse(json["fechacese"]),
         idusuario: json["idusuario"],
         personalEmpresaSubdivision: json["PersonalEmpresa_Subdivision"] == null
             ? null

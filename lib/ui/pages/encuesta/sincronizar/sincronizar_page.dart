@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/sincronizar/sincronizar_controller.dart';
@@ -22,22 +21,45 @@ class SincronizarPage extends StatelessWidget {
             body: ListView(
               children: [
                 itemEncabezado(size),
-                
                 GetBuilder<SincronizarController>(
-                  id: 'sedes',
-                  builder: (_)=> itemSincronizado(size, 'sedes', 'Sedes' , _.sedes.length.toString() )),
+                    id: 'sedes',
+                    builder: (_) => itemSincronizado(
+                        size, 'sedes', 'Sedes', _.sedes.length.toString())),
                 GetBuilder<SincronizarController>(
-                  id: 'usuarios',
-                  builder: (_)=> itemSincronizado(size, 'usuarios', 'Usuarios' , _.usuarios.length.toString() )),
+                    id: 'usuarios',
+                    builder: (_) => itemSincronizado(size, 'usuarios',
+                        'Usuarios', _.usuarios.length.toString())),
                 GetBuilder<SincronizarController>(
-                  id: 'personal_empresa',
-                  builder: (_)=> itemSincronizado(size, 'personal_empresa', 'Personal' , _.personal.length.toString() )),
+                    id: 'personal_empresa',
+                    builder: (_) => itemSincronizado(size, 'personal_empresa',
+                        'Personal', _.personal.length.toString())),
                 GetBuilder<SincronizarController>(
-                  id: 'puntos_entrega',
-                  builder: (_)=> itemSincronizado(size, 'puntos_entrega', 'Puntos de entrega' , _.puntosEntrega.length.toString() )),
+                    id: 'puntos_entrega',
+                    builder: (_) => itemSincronizado(
+                        size,
+                        'puntos_entrega',
+                        'Puntos de entrega',
+                        _.puntosEntrega.length.toString())),
                 GetBuilder<SincronizarController>(
-                  id: 'encuesta',
-                  builder: (_)=> itemSincronizado(size, 'encuesta', 'Encuesta' , _.encuestas.length.toString() )),
+                    id: 'encuesta',
+                    builder: (_) => itemSincronizado(size, 'encuesta',
+                        'Encuesta', _.encuestas.length.toString())),
+                GetBuilder<SincronizarController>(
+                    id: 'unidad_negocio',
+                    builder: (_) => itemSincronizado(size, 'unidad_negocio',
+                        'Unidades de negocio', _.unidadesNegocio.length.toString())),
+                GetBuilder<SincronizarController>(
+                    id: 'encuesta_etapa',
+                    builder: (_) => itemSincronizado(size, 'encuesta_etapa',
+                        'Encuesta y Etapa', _.encuestaEtapas.length.toString())),
+                GetBuilder<SincronizarController>(
+                    id: 'encuesta_campo',
+                    builder: (_) => itemSincronizado(size, 'encuesta_campo',
+                        'Encuesta y campos', _.encuestaCampos.length.toString())),
+                GetBuilder<SincronizarController>(
+                    id: 'encuesta_turno',
+                    builder: (_) => itemSincronizado(size, 'encuesta_turno',
+                        'Encuesta y turno', _.encuestaTurnos.length.toString())),
                 /* GetBuilder<SincronizarController>(
                   id: 'encuesta_opciones',
                   builder: (_)=> itemSincronizado(size, 'encuesta_opciones', 'Opciones de encuesta' , _.encuestaOpciones.length.toString() )), */
@@ -49,7 +71,8 @@ class SincronizarPage extends StatelessWidget {
             builder: (_) => _.validando
                 ? Container(
                     color: Colors.black45,
-                    child: Center(child: CircularProgressIndicator(
+                    child: Center(
+                        child: CircularProgressIndicator(
                       color: primaryColor,
                     )),
                   )
@@ -86,7 +109,8 @@ class SincronizarPage extends StatelessWidget {
     );
   }
 
-  Widget itemSincronizado(Size size, String titleBuilder, String title, String count) {
+  Widget itemSincronizado(
+      Size size, String titleBuilder, String title, String count) {
     return GetBuilder<SincronizarController>(
       id: titleBuilder,
       builder: (_) => Container(
@@ -98,14 +122,12 @@ class SincronizarPage extends StatelessWidget {
             Expanded(
                 flex: 10,
                 child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(title))),
+                    alignment: Alignment.centerLeft, child: Text(title))),
             Expanded(child: Container(), flex: 1),
             Expanded(
                 flex: 10,
-                child: Container(
-                    alignment: Alignment.center,
-                    child: Text(count))),
+                child:
+                    Container(alignment: Alignment.center, child: Text(count))),
             Expanded(child: Container(), flex: 1),
           ],
         ),

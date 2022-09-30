@@ -81,6 +81,14 @@ class PreferenciasUsuario {
     _prefs.setInt('id_sociedad', value);
   }
 
+  get idSubdivision {
+    return _prefs.getInt('id_subdivision');
+  }
+
+  set idSubdivision(int value) {
+    _prefs.setInt('id_subdivision', value);
+  }
+
   get modoDark {
     return _prefs?.getBool('modoDark') ?? false;
   }
@@ -89,5 +97,36 @@ class PreferenciasUsuario {
     _prefs.setBool('modoDark', value);
   }
 
+  get idUnidadNegocio {
+    return _prefs.getInt('id_unidad_negocio');
+  }
+
+  set idUnidadNegocio(int value) {
+    _prefs.setInt('id_unidad_negocio', value);
+  }
+
+  get idEtapa {
+    return _prefs.getInt('id_etapa');
+  }
+
+  set idEtapa(int value) {
+    _prefs.setInt('id_etapa', value);
+  }
+
+  get idCampo {
+    return _prefs.getInt('id_campo');
+  }
+
+  set idCampo(int value) {
+    _prefs.setInt('id_campo', value);
+  }
+
+  get idTurno {
+    return _prefs.getInt('id_turno');
+  }
+
+  set idTurno(int value) {
+    _prefs.setInt('id_turno', value);
+  }
 
 }

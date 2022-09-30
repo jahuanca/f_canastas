@@ -148,7 +148,7 @@ class EncuestasPage extends StatelessWidget {
                                 ),
                                 flex: 12,
                               ),
-                              Expanded(
+                              /* Expanded(
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
@@ -173,7 +173,7 @@ class EncuestasPage extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  flex: 3),
+                                  flex: 3), */
                             ],
                           ),
                         ),

@@ -7,9 +7,9 @@ import 'package:flutter_actividades/domain/repositories/actividad_repository.dar
 import 'package:flutter_actividades/domain/repositories/labor_repository.dart';
 import 'package:flutter_actividades/domain/repositories/personal_empresa_repository.dart';
 import 'package:flutter_actividades/domain/repositories/personal_vehiculo_repository.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_actividads_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_labors_use_case.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_personal_vehiculo_by_temporada_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_actividads_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_labors_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_personal_vehiculo_by_temporada_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/agregar_persona/get_personal_empresa_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/create_personal_vehiculo_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/entregable/personal_vehiculo/delete_personal_vehiculo_use_case.dart';

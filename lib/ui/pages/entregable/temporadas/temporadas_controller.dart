@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_actividades/di/listado_vehiculo_temporada_binding.dart';
 import 'package:flutter_actividades/domain/entities/temporada_entity.dart';
-import 'package:flutter_actividades/domain/sincronizar/get_temporadas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/sincronizar/get_temporadas_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/others/export_data_to_excel_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/entregable/temporadas/update_temporada_use_case.dart';
 import 'package:flutter_actividades/ui/pages/entregable/listado_vehiculo_temporada/listado_vehiculo_temporada_page.dart';
