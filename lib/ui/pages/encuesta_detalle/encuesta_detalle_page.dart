@@ -45,9 +45,10 @@ class EncuestaDetallePage extends StatelessWidget {
                   ? _emptyContainer(size)
                   : GetBuilder<EncuestaDetalleController>(
                       builder: (_) => ListView.builder(
-                        itemCount: _.personalRespondido.length,
+                        itemCount: _.personalRespondido.length + 1,
                         itemBuilder: (context, index) =>
-                            _itemPersona(size, index),
+                            (index==0) ? _contador()
+                            :_itemPersona(size, index-1),
                       ),
                     ),
               ),
@@ -182,6 +183,48 @@ class EncuestaDetallePage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _contador(){
+    return Container(
+      child: Row(
+        children: [
+          Expanded(child: _itemContador("Total:", controller.personalRespondido.length ?? 0 ,Icons.inbox, infoColor), flex: 1,),
+          Expanded(child: _itemContador("Migrados:", controller.completados ,Icons.check, successColor), flex: 1,),
+          Expanded(child: _itemContador("Pendientes:", controller.pendientes,Icons.close, alertColor), flex: 1,),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemContador(String texto, int valor, IconData icon, Color color){
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Expanded(child: CircleAvatar(
+            radius: 10,
+            backgroundColor: color,
+            child: Icon(icon, size: 15, color: Colors.white,)), flex: 1),
+          Expanded(child: Row(
+            children: [
+              Text(texto, style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),),
+
+              Text('  $valor', style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Colors.black87
+              ),),
+
+            ],
+          ), flex: 3),
+        ],
       ),
     );
   }

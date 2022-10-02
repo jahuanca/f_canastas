@@ -82,9 +82,9 @@ class DetalleRespuestaEntity {
       };
 }
 
-List<DetalleRespuestaEntity> respuestaEntityFromJson(String str) =>
+List<DetalleRespuestaEntity> detalleRespuestaEntityFromJson(String str) =>
     List<DetalleRespuestaEntity>.from(
         json.decode(str).map((x) => DetalleRespuestaEntity.fromJson(x)));
 
-String respuestaEntityToJson(List<DetalleRespuestaEntity> data) =>
+String detalleRespuestaEntityToJson(List<DetalleRespuestaEntity> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

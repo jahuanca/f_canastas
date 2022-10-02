@@ -1,5 +1,5 @@
 
-import 'package:flutter_actividades/domain/repositories/respuesta_repository.dart';
+import 'package:flutter_actividades/domain/repositories/personal_respuesta_repository.dart';
 
 class DeletePersonalRespuestasUseCase{
   final PersonalRespuestasRepository _repository;

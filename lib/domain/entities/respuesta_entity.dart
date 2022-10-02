@@ -109,7 +109,7 @@ class RespuestaEntity {
 
 }
 
-List<RespuestaEntity> personalEncuestaEntityFromJson(String str) => List<RespuestaEntity>.from(json.decode(str).map((x) => RespuestaEntity.fromJson(x)));
+List<RespuestaEntity> respuestaEntityFromJson(String str) => List<RespuestaEntity>.from(json.decode(str).map((x) => RespuestaEntity.fromJson(x)));
 
 String RespuestaEntityToJson(List<RespuestaEntity> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 

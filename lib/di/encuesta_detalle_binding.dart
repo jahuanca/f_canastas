@@ -8,7 +8,7 @@ import 'package:flutter_actividades/domain/repositories/encuesta_detalle_reposit
 import 'package:flutter_actividades/domain/repositories/encuesta_opciones_repository.dart';
 import 'package:flutter_actividades/domain/repositories/encuesta_repository.dart';
 import 'package:flutter_actividades/domain/repositories/personal_empresa_repository.dart';
-import 'package:flutter_actividades/domain/repositories/respuesta_repository.dart';
+import 'package:flutter_actividades/domain/repositories/personal_respuesta_repository.dart';
 import 'package:flutter_actividades/domain/use_cases/agregar_persona/get_personal_empresa_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/update_encuesta_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_opciones/get_all_encuesta_opciones_by_values_use_case.dart';

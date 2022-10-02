@@ -35,13 +35,14 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       cantidadTotal: fields[15] as int,
       hayPendientes: fields[16] as bool,
       preguntas: (fields[18] as List)?.cast<PreguntaEntity>(),
+      respuestasEncuesta: (fields[19] as List)?.cast<RespuestaEntity>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, EncuestaEntity obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -77,7 +78,9 @@ class EncuestaEntityAdapter extends TypeAdapter<EncuestaEntity> {
       ..writeByte(17)
       ..write(obj.anio)
       ..writeByte(18)
-      ..write(obj.preguntas);
+      ..write(obj.preguntas)
+      ..writeByte(19)
+      ..write(obj.respuestasEncuesta);
   }
 
   @override

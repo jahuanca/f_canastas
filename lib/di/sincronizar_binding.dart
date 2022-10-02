@@ -15,6 +15,7 @@ import 'package:flutter_actividades/data/repositories/personal_vehiculo_reposito
 import 'package:flutter_actividades/data/repositories/pre_tareo_proceso_repository_implementation.dart';
 import 'package:flutter_actividades/data/repositories/producto_repository_implementation.dart';
 import 'package:flutter_actividades/data/repositories/punto_entrega_repository_implementation.dart';
+import 'package:flutter_actividades/data/repositories/respuesta_repository_implementation.dart';
 import 'package:flutter_actividades/data/repositories/subdivision_repository_implementation.dart';
 import 'package:flutter_actividades/data/repositories/temporada_repository_implementation.dart';
 import 'package:flutter_actividades/data/repositories/tipo_tarea_repository_implementation.dart';
@@ -36,6 +37,7 @@ import 'package:flutter_actividades/domain/repositories/personal_vehiculo_reposi
 import 'package:flutter_actividades/domain/repositories/pre_tareo_proceso_repository.dart';
 import 'package:flutter_actividades/domain/repositories/producto_repository.dart';
 import 'package:flutter_actividades/domain/repositories/punto_entrega_repository.dart';
+import 'package:flutter_actividades/domain/repositories/respuesta_repository.dart';
 import 'package:flutter_actividades/domain/repositories/subdivision_repository.dart';
 import 'package:flutter_actividades/domain/repositories/labor_repository.dart';
 import 'package:flutter_actividades/domain/repositories/temporada_repository.dart';
@@ -43,6 +45,7 @@ import 'package:flutter_actividades/domain/repositories/tipo_tarea_repository.da
 import 'package:flutter_actividades/domain/repositories/unidad_negocio_repository.dart';
 import 'package:flutter_actividades/domain/repositories/usuario_repository.dart';
 import 'package:flutter_actividades/domain/repositories/vehiculo_repository.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/get_respuestas_by_encuesta_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_campos_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_etapas_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_use_case.dart';
@@ -124,6 +127,7 @@ class SincronizarBinding extends Bindings{
         Get.lazyPut<EncuestaEtapaRepository>(() => EncuestaEtapaRepositoryImplementation());
         Get.lazyPut<EncuestaCampoRepository>(() => EncuestaCampoRepositoryImplementation());
         Get.lazyPut<EncuestaTurnoRepository>(() => EncuestaTurnoRepositoryImplementation());
+        Get.lazyPut<RespuestaRepository>(() => RespuestaRepositoryImplementation());
 
         Get.lazyReplace<GetAllEncuestaUseCase>(() => GetAllEncuestaUseCase(Get.find()));
         Get.lazyReplace<GetAllEncuestaOpcionesUseCase>(() => GetAllEncuestaOpcionesUseCase(Get.find()));
@@ -131,9 +135,11 @@ class SincronizarBinding extends Bindings{
         Get.lazyReplace<GetEncuestaEtapasUseCase>(() => GetEncuestaEtapasUseCase(Get.find()));
         Get.lazyReplace<GetEncuestaCamposUseCase>(() => GetEncuestaCamposUseCase(Get.find()));
         Get.lazyReplace<GetEncuestaTurnosUseCase>(() => GetEncuestaTurnosUseCase(Get.find()));
+        Get.lazyReplace<GetRespuestasByEncuesta>(() => GetRespuestasByEncuesta(Get.find()));
 
         Get.lazyReplace<encuestaSC.SincronizarController>(
           () => encuestaSC.SincronizarController(
+            Get.find(), 
             Get.find(), 
             Get.find(), 
             Get.find(), 

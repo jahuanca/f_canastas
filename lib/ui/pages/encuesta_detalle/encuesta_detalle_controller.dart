@@ -1,7 +1,5 @@
-
 import 'package:flutter_actividades/di/informacion_encuestado_binding.dart';
 import 'package:flutter_actividades/di/preguntas_binding.dart';
-import 'package:flutter_actividades/domain/entities/detalle_respuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_opciones_entity.dart';
 import 'package:flutter_actividades/domain/entities/personal_empresa_entity.dart';
@@ -33,9 +31,11 @@ class EncuestaDetalleController extends GetxController {
   final UpdateEncuestaUseCase _updateEncuestaUseCase;
 
   List<PersonalEmpresaEntity> personal = [];
-  bool validando = false, errorNumeroDocumento=true;
-  String numeroDocumento='';
-  int enviados=0;
+  bool validando = false, errorNumeroDocumento = true;
+  String numeroDocumento = '';
+  int enviados = 0;
+  int completados = 0;
+  int pendientes = 0;
 
   EncuestaEntity encuestaSeleccionada;
   List<EncuestaOpcionesEntity> opciones = [];
@@ -62,16 +62,19 @@ class EncuestaDetalleController extends GetxController {
     super.onInit();
   }
 
+  void contadores() {}
+
   @override
   void onReady() async {
     validando = true;
     update(['validando']);
-    personalRespondido=[];
+    personalRespondido = [];
     personalRespondido = await _getAllPersonalRespuestasUseCase
         .execute('${encuestaSeleccionada.id}');
 
     personalRespondido.forEach((e) {
-      if(e?.estadoLocal=='1') enviados=enviados+1;
+      if (e?.estadoLocal == '1') enviados = enviados + 1;
+      (e.getPendientesPorMigrar()) ? completados++ : pendientes++;
     });
     personal = await _getPersonalsEmpresaUseCase.execute();
     opciones = await _getAllEncuestaOpcionesByValuesUseCase
@@ -84,7 +87,6 @@ class EncuestaDetalleController extends GetxController {
   }
 
   Future<void> goLectorCode() async {
-    
     String barcode;
 
     barcode = await FlutterBarcodeScanner.scanBarcode(
@@ -92,35 +94,45 @@ class EncuestaDetalleController extends GetxController {
     await validarCodigo(barcode);
   }
 
-  Future<void> validarCodigo(String barcode) async{
+  Future<void> validarCodigo(String barcode) async {
     if (barcode != '-1') {
       int index = personal
           .indexWhere((e) => e.nrodocumento == barcode.toString().trim());
+      print(personal[index].toJson());
       if (index != -1) {
+        int indexDetalle = personalRespondido.lastIndexWhere(
+            (e) => e.codigoempresa == personal[index].codigoempresa.trim());
 
-        int indexDetalle = personalRespondido
-          .indexWhere((e) => e.codigoempresa == personal[index].codigoempresa);
+        if (indexDetalle != -1) {
+          toastError('Error', 'Ya se encuentra registrado.');
+          return;
+        }
 
-        if(indexDetalle!=-1){
-          toastError('Error', 'Ya se encuentra registrado');
+        int indexRespuestaEncuesta = encuestaSeleccionada.respuestasEncuesta
+            .indexWhere(
+                (e) => e.codigoempresa == personal[index].codigoempresa.trim());
+
+        if (indexRespuestaEncuesta != -1) {
+          toastError('Error', 'Ya se encuentra migrado.');
           return;
         }
 
         InformacionEncuestadoBinding().dependencies();
-        final resultR= await Get.to<RespuestaEntity>(()=> InformacionEncuestadoPage());
-        
-        if(resultR == null){
+        final resultR =
+            await Get.to<RespuestaEntity>(() => InformacionEncuestadoPage());
+
+        if (resultR == null) {
           return;
         }
 
         PreguntasBinding().dependencies();
-        final result= await Get.to<PersonalRespuestasEntity>(()=> PreguntasPage(),
-          arguments: {
-            'informacion': resultR,
-            'encuesta': encuestaSeleccionada,
-            'personal_seleccionado': personal[index] 
-          }
-        );
+        final result = await Get.to<PersonalRespuestasEntity>(
+            () => PreguntasPage(),
+            arguments: {
+              'informacion': resultR,
+              'encuesta': encuestaSeleccionada,
+              'personal_seleccionado': personal[index]
+            });
 
         if (result != null) {
           int key = await _createPersonalRespuestasUseCase.execute(
@@ -137,42 +149,40 @@ class EncuestaDetalleController extends GetxController {
           encuestaSeleccionada.hayPendientes=true;
           
           await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key); */
-          update(['validando','detalles']);
+          update(['validando', 'detalles']);
         }
-      }
-      else{
+      } else {
         toastError('Error', 'No se encontró el numero de documento.');
       }
     }
   }
 
   Future<void> goEditar(int index) async {
-
     PreguntasBinding().dependencies();
-        final result= await Get.to<PersonalRespuestasEntity>(()=> PreguntasPage(),
-          arguments: {
-            'encuesta': encuestaSeleccionada,
-            'personal_seleccionado': personal[index],
-            'detalle': personalRespondido[index],
-            'informacion': RespuestaEntity(
-              idunidad: personalRespondido[index].idunidad,
-              idcampo: personalRespondido[index].idcampo,
-              idetapa: personalRespondido[index].idetapa,
-              idturno: personalRespondido[index].idturno,
-            )
-          }
-        );
-    
+    final result = await Get.to<PersonalRespuestasEntity>(() => PreguntasPage(),
+        arguments: {
+          'encuesta': encuestaSeleccionada,
+          'personal_seleccionado': personal[index],
+          'detalle': personalRespondido[index],
+          'informacion': RespuestaEntity(
+            idunidad: personalRespondido[index].idunidad,
+            idcampo: personalRespondido[index].idcampo,
+            idetapa: personalRespondido[index].idetapa,
+            idturno: personalRespondido[index].idturno,
+          )
+        });
+
     if (result != null) {
-      await _updatePersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}', personalRespondido[index].key , result);
+      await _updatePersonalRespuestasUseCase.execute(
+          '${encuestaSeleccionada.id}', personalRespondido[index].key, result);
       personalRespondido[index] = result;
       /* result.key=personalRespondido[index].key; */
       update(['detalles']);
     }
   }
 
-  Future<void> goEliminar(int index) async{
-    bool result=await basicDialog(
+  Future<void> goEliminar(int index) async {
+    bool result = await basicDialog(
       Get.overlayContext,
       'Alerta',
       '¿Desea eliminar este detalle?',
@@ -184,43 +194,56 @@ class EncuestaDetalleController extends GetxController {
       () => Get.back(result: false),
     );
 
-    if(result){
-      await _deletePersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}', personalRespondido[index].key);
-      if(personalRespondido[index]?.estadoLocal==1){
-        enviados=enviados-1;
+    if (result) {
+      await _deletePersonalRespuestasUseCase.execute(
+          '${encuestaSeleccionada.id}', personalRespondido[index].key);
+      if (personalRespondido[index]?.estadoLocal == 1) {
+        enviados = enviados - 1;
       }
       personalRespondido.removeAt(index);
-      encuestaSeleccionada.cantidadTotal=personalRespondido.length;
-      encuestaSeleccionada.hayPendientes=((personalRespondido.length ?? 0) > enviados);
-      await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
+      encuestaSeleccionada.cantidadTotal = personalRespondido.length;
+      encuestaSeleccionada.hayPendientes =
+          ((personalRespondido.length ?? 0) > enviados);
+      await _updateEncuestaUseCase.execute(
+          encuestaSeleccionada, encuestaSeleccionada.key);
       update(['detalles']);
     }
   }
 
-  void changeNumeroDocumento(String value){
-    if(value==null){
-      errorNumeroDocumento=true;
+  void changeNumeroDocumento(String value) {
+    if (value == null) {
+      errorNumeroDocumento = true;
       return;
     }
-    numeroDocumento=value;
-    errorNumeroDocumento=false;
+    numeroDocumento = value;
+    errorNumeroDocumento = false;
   }
 
-  Future<void> searchNumeroDocumento() async{
-    if(!errorNumeroDocumento){
+  Future<void> searchNumeroDocumento() async {
+    if (!errorNumeroDocumento) {
       print('buscando');
       Get.back();
       await validarCodigo(numeroDocumento);
     }
   }
 
-  Future<void> goSincronizar(int index) async{
+  Future<void> goSincronizar(int index) async {
+    if (personalRespondido[index].respuestas.length !=
+        encuestaSeleccionada.preguntas.length) {
+      toastError('Error', 'No ha respondido todas las preguntas.');
+      return;
+    }
 
-    String mensaje= (personalRespondido[index]?.estadoLocal== -1) ? 'Este detalle ha sido marcado como repetido, ¿desea sincronizar este detalle?' : '¿Desea sincronizar este detalle?';
+    String mensaje = (personalRespondido[index]?.estadoLocal == -1)
+        ? 'Este detalle ha sido marcado como repetido, ¿desea sincronizar este detalle?'
+        : '¿Desea sincronizar este detalle?';
 
-    mensaje= (personalRespondido[index].respuestas.length < encuestaSeleccionada.preguntas.length ) ? 'Tiene preguntas por responder, ¿está seguro de migrar?' : mensaje;
+    mensaje = (personalRespondido[index].respuestas.length <
+            encuestaSeleccionada.preguntas.length)
+        ? 'Tiene preguntas por responder, ¿está seguro de migrar?'
+        : mensaje;
 
-    bool result=await basicDialog(
+    bool result = await basicDialog(
       Get.overlayContext,
       'Alerta',
       mensaje,
@@ -232,12 +255,13 @@ class EncuestaDetalleController extends GetxController {
       () => Get.back(result: false),
     );
 
-    if(result){
-      validando=true;
+    if (result) {
+      validando = true;
       update(['validando']);
-      PersonalRespuestasEntity res =await _migrarPersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}', personalRespondido[index].key);
-      if(res != null){
-        personalRespondido[index]=res;
+      PersonalRespuestasEntity res = await _migrarPersonalRespuestasUseCase
+          .execute('${encuestaSeleccionada.id}', personalRespondido[index].key);
+      if (res != null) {
+        personalRespondido[index] = res;
         toastExito('Éxito', 'Sincronizado con éxito.');
         /* personalRespondido[index].estadoLocal=1;
         personalRespondido[index].respuestas= res.detalles;
@@ -246,10 +270,10 @@ class EncuestaDetalleController extends GetxController {
         enviados=enviados+1;
         encuestaSeleccionada.hayPendientes=((personalRespondido.length ?? 0) > enviados);
         await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key); */
-      }else{
+      } else {
         toastError('Error', 'Ocurrio un error al migrar la información.');
       }
-      validando=false;
+      validando = false;
       update(['detalles', 'validando']);
     }
   }

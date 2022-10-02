@@ -1,6 +1,6 @@
 
 import 'package:flutter_actividades/domain/entities/personal_respuestas_entity.dart';
-import 'package:flutter_actividades/domain/repositories/respuesta_repository.dart';
+import 'package:flutter_actividades/domain/repositories/personal_respuesta_repository.dart';
 
 class UpdatePersonalRespuestasUseCase{
   final PersonalRespuestasRepository _repository;

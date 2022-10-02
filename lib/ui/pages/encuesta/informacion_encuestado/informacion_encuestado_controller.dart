@@ -8,6 +8,7 @@ import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encues
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_by_values_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_unidad_negocios_use_case.dart';
 import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:get/get.dart';
 
 class InformacionEncuestadoController extends GetxController {
@@ -66,8 +67,8 @@ class InformacionEncuestadoController extends GetxController {
     unidadesNegocio = await _getUnidadNegociosUseCase.execute();
     if (unidadesNegocio.length > 0) {
       await changeUnidadNegocio(editando
-          ? informacion.idunidad.toString()
-          : unidadesNegocio.first.idunidad.toString());
+          ? informacion?.idunidad.toString()
+          : PreferenciasUsuario()?.idUnidadNegocio?.toString() ?? unidadesNegocio.first.idunidad.toString());
     }
     update(['unidad_negocio']);
   }
@@ -77,8 +78,8 @@ class InformacionEncuestadoController extends GetxController {
     if (encuestaEtapas.length > 0) {
       encuestaEtapaSelected = encuestaEtapas.first;
       await changeEtapa(editando
-          ? informacion.idetapa.toString()
-          : encuestaEtapaSelected.idetapa.toString());
+          ? informacion.idetapa?.toString()
+          : PreferenciasUsuario()?.idEtapa?.toString() ?? encuestaEtapaSelected.idetapa.toString());
     }
     update(['encuesta_etapa']);
   }
@@ -90,8 +91,8 @@ class InformacionEncuestadoController extends GetxController {
     if (encuestaCampos.length > 0) {
       encuestaCampoSelected = encuestaCampos.first;
       await changeCampo(editando
-          ? informacion.idcampo.toString()
-          : encuestaCampoSelected.idcampo.toString());
+          ? informacion.idcampo?.toString()
+          : PreferenciasUsuario()?.idCampo?.toString() ?? encuestaCampoSelected.idcampo.toString());
     }
     update(['encuesta_campo']);
   }
@@ -105,7 +106,7 @@ class InformacionEncuestadoController extends GetxController {
       print('tiene valores');
       encuestaTurnoSelected = encuestaTurnos.first;
       await changeTurno(editando
-          ? informacion.idturno.toString()
+          ? informacion.idturno?.toString() ?? PreferenciasUsuario().idUnidadNegocio
           : encuestaTurnoSelected.idturno.toString());
     }
     update(['encuesta_turno']);
@@ -156,6 +157,11 @@ class InformacionEncuestadoController extends GetxController {
     );
 
     if (result ?? false) {
+      PreferenciasUsuario().idUnidadNegocio= unidadNegocioSelected.idunidad;
+      PreferenciasUsuario().idEtapa= encuestaEtapaSelected.idetapa;
+      PreferenciasUsuario().idCampo= encuestaCampoSelected.idcampo;
+      PreferenciasUsuario().idTurno=encuestaTurnoSelected.idturno;
+
       Get.back(
           result: RespuestaEntity(
         idunidad: unidadNegocioSelected.idunidad,

@@ -21,6 +21,7 @@ import 'package:flutter_actividades/domain/entities/tipo_tarea_entity.dart';
 import 'package:flutter_actividades/domain/entities/unidad_negocio_entity.dart';
 import 'package:flutter_actividades/domain/entities/usuario_entity.dart';
 import 'package:flutter_actividades/domain/entities/vehiculo_entity.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/get_respuestas_by_encuesta_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_campos_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_etapas_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_use_case.dart';
@@ -96,6 +97,7 @@ class SincronizarController extends GetxController{
   final GetEncuestaEtapasUseCase _getEncuestaEtapasUseCase;
   final GetEncuestaCamposUseCase _getEncuestaCamposUseCase;
   final GetEncuestaTurnosUseCase _getEncuestaTurnosUseCase;
+  final GetRespuestasByEncuesta _getRespuestasByEncuesta;
 
   SincronizarController(
       this._getActividadsUseCase,
@@ -120,6 +122,7 @@ class SincronizarController extends GetxController{
       this._getEncuestaEtapasUseCase,
       this._getEncuestaCamposUseCase,
       this._getEncuestaTurnosUseCase,
+      this._getRespuestasByEncuesta,
     );
 
   bool validando=false;
@@ -235,9 +238,13 @@ class SincronizarController extends GetxController{
   
     await encuestasSincronizados?.clear();
     for (int i = 0; i < encuestas.length; i++) {
+      print('nuevo $i');
+
       int key=await encuestasSincronizados.add(encuestas[i]);
       encuestas[i].key=key;
       encuestas[i].hayPendientes=false;
+      encuestas[i].respuestasEncuesta=(await _getRespuestasByEncuesta.execute(encuestas[i].id)) ?? [];
+
       encuestasSincronizados.put(key, encuestas[i]);
     }
     //await encuestasSincronizados.addAll(encuestas);
