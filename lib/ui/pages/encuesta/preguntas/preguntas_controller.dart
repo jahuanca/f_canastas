@@ -25,6 +25,8 @@ class PreguntasController extends GetxController {
   PersonalRespuestasEntity personalRespuestaAnterior;
   RespuestaEntity informacion;
   bool validando = false;
+  int pendientes=0;
+  int respondidas=0;
 
   GetUnidadNegociosByValuesUseCase _getUnidadNegociosByValuesUseCase;
   GetEncuestaEtapasByValuesUseCase _getEncuestaEtapasByValuesUseCase;
@@ -47,8 +49,10 @@ class PreguntasController extends GetxController {
   void onInit() {
     if (Get.arguments != null) {
       if (Get.arguments['encuesta'] != null) {
+        
         encuestaSeleccionada = EncuestaEntity.fromJson(
             (Get.arguments['encuesta'] as EncuestaEntity).toJson());
+        pendientes=encuestaSeleccionada.preguntas.length;
       }
 
       if (Get.arguments['informacion'] != null) {
@@ -60,7 +64,7 @@ class PreguntasController extends GetxController {
         personalSeleccionado =
             Get.arguments['personal_seleccionado'] as PersonalEmpresaEntity;
       }
-
+      
       if (Get.arguments['detalle'] != null) {
         personalRespuestaAnterior = PersonalRespuestasEntity.fromJson(
             (Get.arguments['detalle'] as PersonalRespuestasEntity).toJson());
@@ -69,6 +73,7 @@ class PreguntasController extends GetxController {
           int indexRespuesta = encuestaSeleccionada.preguntas
               .indexWhere((e) => e.id == respuesta.idpregunta);
           if (indexRespuesta != -1) {
+            respondidas++;
             PreguntaEntity preguntaSeleccionada=encuestaSeleccionada.preguntas[indexRespuesta];
             preguntaSeleccionada.indexesSelected=[];
             preguntaSeleccionada.idRespuestaDB=respuesta.id;
@@ -82,6 +87,8 @@ class PreguntasController extends GetxController {
                           ? -1
                           : 0); */
             });
+          }else{
+            pendientes++;
           }
         log(encuestaSeleccionada.toJson()['Pregunta'].toString());
         });

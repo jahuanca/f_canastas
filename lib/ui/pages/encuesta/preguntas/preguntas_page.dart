@@ -27,10 +27,11 @@ class PreguntasPage extends StatelessWidget {
         appBar: getAppBarChoose(_.personalSeleccionado.nombreCompleto ?? '', [],
             true, 1, Alignment.centerLeft, 20),
         body: ListView.builder(
-          itemCount: _.encuestaSeleccionada.preguntas.length + 1,
+          itemCount: _.encuestaSeleccionada.preguntas.length + 2,
           itemBuilder: (context, index) => (index == 0)
-              ? informacionEncuestador()
-              : Container(child: _itemPregunta(index - 1)),
+              ? _contador()
+              : (index==1) ? informacionEncuestador()
+              : Container(child: _itemPregunta(index - 2)),
         ),
       ),
     );
@@ -235,6 +236,49 @@ class PreguntasPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _contador(){
+    return Container(
+      child: Row(
+        children: [
+          Expanded(child: _itemContador("Total:", controller.encuestaSeleccionada.preguntas.length ?? 0 ,Icons.inbox, infoColor), flex: 1,),
+          Expanded(child: _itemContador("Respondidos:", controller.respondidas ?? 0 ,Icons.check, successColor), flex: 1,),
+          Expanded(child: _itemContador("Pendientes:", controller.pendientes ?? 0 ,Icons.close, alertColor), flex: 1,),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemContador(String texto, int valor, IconData icon, Color color){
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Expanded(child: CircleAvatar(
+            radius: 10,
+            backgroundColor: color,
+            child: Icon(icon, size: 15, color: Colors.white,)), flex: 1),
+          Expanded(child: Row(
+            children: [
+              Text(texto, style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),),
+
+              Text('  $valor', style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Colors.black87
+              ),),
+
+            ],
+          ), flex: 3),
+        ],
+      ),
+    );
+  }
+
 
   Widget _itemBorrar(int index) {
     return GetBuilder<PreguntasController>(

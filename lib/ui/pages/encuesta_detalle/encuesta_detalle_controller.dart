@@ -98,7 +98,7 @@ class EncuestaDetalleController extends GetxController {
     if (barcode != '-1') {
       int index = personal
           .indexWhere((e) => e.nrodocumento == barcode.toString().trim());
-      print(personal[index].toJson());
+      
       if (index != -1) {
         int indexDetalle = personalRespondido.lastIndexWhere(
             (e) => e.codigoempresa == personal[index].codigoempresa.trim());

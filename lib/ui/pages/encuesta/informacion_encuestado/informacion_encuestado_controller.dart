@@ -106,8 +106,8 @@ class InformacionEncuestadoController extends GetxController {
       print('tiene valores');
       encuestaTurnoSelected = encuestaTurnos.first;
       await changeTurno(editando
-          ? informacion.idturno?.toString() ?? PreferenciasUsuario().idUnidadNegocio
-          : encuestaTurnoSelected.idturno.toString());
+          ? informacion.idturno?.toString()
+          : PreferenciasUsuario()?.idTurno?.toString() ?? encuestaTurnoSelected.idturno.toString());
     }
     update(['encuesta_turno']);
   }
