@@ -41,6 +41,8 @@ class EncuestaDetalleController extends GetxController {
   List<EncuestaOpcionesEntity> opciones = [];
   List<PersonalRespuestasEntity> personalRespondido = [];
 
+  List<int> seleccionados = [];
+
   EncuestaDetalleController(
       this._getPersonalsEmpresaUseCase,
       this._deletePersonalRespuestasUseCase,
@@ -62,7 +64,16 @@ class EncuestaDetalleController extends GetxController {
     super.onInit();
   }
 
-  void contadores() {}
+  Future<void> refreshContadores() async{
+    enviados=0;
+    completados=0;
+    pendientes=0;
+    personalRespondido.forEach((e) {
+      if (e?.estadoLocal == '1' && e?.estado != 'R') enviados = enviados + 1;
+      (e.getPendientesPorMigrar()) ? pendientes++ : completados++;
+    });
+    update(['encabezado']);
+  }
 
   @override
   void onReady() async {
@@ -73,8 +84,8 @@ class EncuestaDetalleController extends GetxController {
         .execute('${encuestaSeleccionada.id}');
 
     personalRespondido.forEach((e) {
-      if (e?.estadoLocal == '1') enviados = enviados + 1;
-      (e.getPendientesPorMigrar()) ? completados++ : pendientes++;
+      if (e?.estadoLocal == '1' && e?.estado != 'R') enviados = enviados + 1;
+      (e.getPendientesPorMigrar()) ? pendientes++ : completados++;
     });
     personal = await _getPersonalsEmpresaUseCase.execute();
     opciones = await _getAllEncuestaOpcionesByValuesUseCase
@@ -84,6 +95,25 @@ class EncuestaDetalleController extends GetxController {
     update(['validando', 'encuesta']);
 
     super.onReady();
+  }
+
+  Future<void> changeSeleccionado(int index) async {
+    int i = seleccionados.indexWhere((e) => e == index);
+    print('agregado');
+    (i == -1)
+        ? seleccionados.add(index)
+        : seleccionados.removeWhere((e) => e == index);
+
+    update(['detalles', 'encabezado']);
+  }
+
+  Future<void> limpiarSeleccionados() async {
+    List<int> ant = [];
+    ant.addAll(seleccionados);
+    seleccionados.clear();
+    for (var i = 0; i < ant.length; i++) {
+      update(['detalle_${ant[i]}', 'encabezado']);
+    }
   }
 
   Future<void> goLectorCode() async {
@@ -98,7 +128,7 @@ class EncuestaDetalleController extends GetxController {
     if (barcode != '-1') {
       int index = personal
           .indexWhere((e) => e.nrodocumento == barcode.toString().trim());
-      
+
       if (index != -1) {
         int indexDetalle = personalRespondido.lastIndexWhere(
             (e) => e.codigoempresa == personal[index].codigoempresa.trim());
@@ -139,6 +169,8 @@ class EncuestaDetalleController extends GetxController {
               '${encuestaSeleccionada.id}', result);
           result.key = key;
           personalRespondido.add(result);
+
+          (result.getPendientesPorMigrar()) ? pendientes++ : completados++;
           //agregar editar el key //ver el tema de idetapa,campo, turno
           /* resultR.detalles=result;
             resultR.personal=personal[index];
@@ -194,20 +226,55 @@ class EncuestaDetalleController extends GetxController {
       () => Get.back(result: false),
     );
 
-    if (result) {
-      await _deletePersonalRespuestasUseCase.execute(
-          '${encuestaSeleccionada.id}', personalRespondido[index].key);
-      if (personalRespondido[index]?.estadoLocal == 1) {
-        enviados = enviados - 1;
-      }
-      personalRespondido.removeAt(index);
-      encuestaSeleccionada.cantidadTotal = personalRespondido.length;
-      encuestaSeleccionada.hayPendientes =
-          ((personalRespondido.length ?? 0) > enviados);
-      await _updateEncuestaUseCase.execute(
-          encuestaSeleccionada, encuestaSeleccionada.key);
-      update(['detalles']);
+    if (result != null && result == true) {
+      validando = true;
+      update(['validando']);
+      await eliminando(index);
+      validando = false;
+      update(['validando', 'detalles']);
     }
+  }
+
+  Future<void> goEliminarSeleccionados() async {
+    bool result = await basicDialog(
+      Get.overlayContext,
+      'Alerta',
+      '¿Desea eliminar todos los seleccionados?',
+      'Si',
+      'No',
+      () async {
+        Get.back(result: true);
+      },
+      () => Get.back(result: false),
+    );
+
+    if (result != null && result == true) {
+      validando = true;
+      update(['validando']);
+      List<int> ant = [];
+      ant.addAll(seleccionados);
+      for (var i in ant) {
+        await eliminando(i);
+      }
+      seleccionados.clear();
+      validando = false;
+      await refreshContadores();
+      update(['validando', 'detalles']);
+    }
+  }
+
+  Future<void> eliminando(int index) async {
+    await _deletePersonalRespuestasUseCase.execute(
+        '${encuestaSeleccionada.id}', personalRespondido[index].key);
+    if (personalRespondido[index]?.estadoLocal == 1) {
+      enviados = enviados - 1;
+    }
+    await personalRespondido.removeAt(index);
+    encuestaSeleccionada.cantidadTotal = personalRespondido.length;
+    encuestaSeleccionada.hayPendientes =
+        ((personalRespondido.length ?? 0) > enviados);
+    await _updateEncuestaUseCase.execute(
+        encuestaSeleccionada, encuestaSeleccionada.key);
   }
 
   void changeNumeroDocumento(String value) {

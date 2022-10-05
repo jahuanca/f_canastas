@@ -87,7 +87,7 @@ class PersonalRespuestasEntity {
     switch (this.estadoLocal) {
       case -1:
         return _containerIcon(
-          pendiente ? 'Pendientes y repetidos' :'Migrado pero con repetidos',
+          pendiente ? 'Pendiente por repetido.' :'Migrado pero con repetidos',
           Icons.error,
           alertColor
         );
@@ -125,12 +125,14 @@ class PersonalRespuestasEntity {
   } */
 
   bool getPendientesPorMigrar() {
+    
     for (RespuestaEntity r in this.respuestas) {
       if (r.id == null) {
         return true;
       }
     }
-
+    if(this.respuestas.isEmpty) return true;
+    if(this.estado!='A') return false;
     return false;
   }
 
@@ -142,6 +144,7 @@ class PersonalRespuestasEntity {
         idcampo: json["idcampo"] == null ? null : json["idcampo"],
         idturno: json["idturno"] == null ? null : json["idturno"],
         key: json["key"] == null ? null : json["key"],
+        estado: json["estado"] == null ? null : json["estado"],
         idencuesta: json["idencuesta"] == null ? null : json["idencuesta"],
         codigoempresa:
             json["codigoempresa"] == null ? null : json["codigoempresa"],
@@ -167,6 +170,7 @@ class PersonalRespuestasEntity {
         "codigoempresa": codigoempresa == null ? null : codigoempresa,
         "fecha": fecha == null ? null : fecha?.toIso8601String(),
         "estadoLocal": estadoLocal == null ? null : estadoLocal,
+        "estado": estado == null ? null : estado,
         "personal": personal == null ? null : personal?.toJson(),
         "respuestas": respuestas == null
             ? []

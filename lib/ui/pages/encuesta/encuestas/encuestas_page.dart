@@ -92,6 +92,7 @@ class EncuestasPage extends StatelessWidget {
                                                   '${_.encuestas[index].titulo}' ??'',
                                                   style: TextStyle(
                                                     fontWeight:FontWeight.w500,
+                                                    overflow: TextOverflow.ellipsis,
                                                     color: Colors.black,
                                                   ),
 
@@ -148,7 +149,7 @@ class EncuestasPage extends StatelessWidget {
                                 ),
                                 flex: 12,
                               ),
-                              /* Expanded(
+                              Expanded(
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
@@ -163,17 +164,17 @@ class EncuestasPage extends StatelessWidget {
                                               color: Colors.white),
                                         ),
                                       ),
-                                      CircleAvatar(                                        
+                                      /* CircleAvatar(                                        
                                         backgroundColor: secondColor,
                                         child: IconButton(
                                           onPressed: ()=> _.goGraficos(index),
                                           icon: Icon(Icons.bar_chart,
                                               color: primaryColor),
                                         ),
-                                      )
+                                      ) */
                                     ],
                                   ),
-                                  flex: 3), */
+                                  flex: 3),
                             ],
                           ),
                         ),

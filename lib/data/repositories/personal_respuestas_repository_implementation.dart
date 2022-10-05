@@ -135,7 +135,14 @@ class PersonalRespuestasRepositoryImplementation
       },
     );
 
-    return personalRespuestaEntityFromJson(res);
+    List<PersonalRespuestasEntity> respuestas=personalRespuestaEntityFromJson(res);
+
+    Box<PersonalRespuestasEntity> tareas = await Hive.openBox<PersonalRespuestasEntity>('${respuestas[0].idencuesta}_encuesta_sincronizar');
+    for (var i = 0; i < respuestas.length; i++) {
+      await tareas?.put(respuestas[i].key, respuestas[i]);
+    }
+    await tareas.close();
+    return respuestas;
   }
 
   @override

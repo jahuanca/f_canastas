@@ -41,14 +41,14 @@ class EncuestaDetallePage extends StatelessWidget {
             body: GetBuilder<EncuestaDetalleController>(
               id: 'detalles',
               builder: (_)=> Container(
-                child:  _.personalRespondido.length == 0
+                child:  _.personalRespondido.isEmpty
                   ? _emptyContainer(size)
                   : GetBuilder<EncuestaDetalleController>(
                       builder: (_) => ListView.builder(
                         itemCount: _.personalRespondido.length + 1,
                         itemBuilder: (context, index) =>
                             (index==0) ? _contador()
-                            :_itemPersona(size, index-1),
+                            : _itemPersona(size, index-1),
                       ),
                     ),
               ),
@@ -72,9 +72,11 @@ class EncuestaDetallePage extends StatelessWidget {
     return GetBuilder<EncuestaDetalleController>(
       id: 'detalle_${index}',
       builder: (_) => Container(
-        padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+        color: _.seleccionados.contains(index) ? primaryColor : Colors.transparent,
+        padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
         child: GestureDetector(
-          onTap: () => _.goEditar(index),
+          onLongPress: ()=> _.changeSeleccionado(index),
+          onTap: _.seleccionados.isEmpty ? () => _.goEditar(index) : null,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             width: size.width,
@@ -149,33 +151,40 @@ class EncuestaDetallePage extends StatelessWidget {
                     ),
                     flex: 10),
                 Expanded(child: Container(), flex: 1),
+                
                 Expanded(
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          if (_.personalRespondido[index]?.getPendientesPorMigrar())
+                    child: Visibility(
+                      visible: _.seleccionados.isEmpty,
+                      maintainSize: true, 
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            if (_.personalRespondido[index]?.getPendientesPorMigrar())
+                              CircleAvatar(
+                                child: IconButton(
+                                    onPressed: () => _.goSincronizar(index),
+                                    icon: Icon(Icons.sync),
+                                    color: Colors.white),
+                                backgroundColor: successColor,
+                              ),
                             CircleAvatar(
                               child: IconButton(
-                                  onPressed: () => _.goSincronizar(index),
-                                  icon: Icon(Icons.sync),
-                                  color: Colors.white),
-                              backgroundColor: successColor,
+                                  onPressed: () => _.goEliminar(index),
+                                  icon: Icon(_.personalRespondido[index]?.estadoLocal == 0
+                                      ? Icons.close
+                                      : _.personalRespondido[index]?.estadoLocal == -1 ? Icons.close :Icons.delete_outline),
+                                  color: _.personalRespondido[index]?.estadoLocal == 0
+                                      ? Colors.white
+                                      : dangerColor),
+                              backgroundColor: _.personalRespondido[index]?.estadoLocal == 0
+                                  ? dangerColor
+                                  : Colors.white,
                             ),
-                          CircleAvatar(
-                            child: IconButton(
-                                onPressed: () => _.goEliminar(index),
-                                icon: Icon(_.personalRespondido[index]?.estadoLocal == 0
-                                    ? Icons.close
-                                    : _.personalRespondido[index]?.estadoLocal == -1 ? Icons.close :Icons.delete_outline),
-                                color: _.personalRespondido[index]?.estadoLocal == 0
-                                    ? Colors.white
-                                    : dangerColor),
-                            backgroundColor: _.personalRespondido[index]?.estadoLocal == 0
-                                ? dangerColor
-                                : Colors.white,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     flex: 4),
@@ -188,14 +197,29 @@ class EncuestaDetallePage extends StatelessWidget {
   }
 
   Widget _contador(){
-    return Container(
-      child: Row(
-        children: [
-          Expanded(child: _itemContador("Total:", controller.personalRespondido.length ?? 0 ,Icons.inbox, infoColor), flex: 1,),
-          Expanded(child: _itemContador("Migrados:", controller.completados ,Icons.check, successColor), flex: 1,),
-          Expanded(child: _itemContador("Pendientes:", controller.pendientes,Icons.close, alertColor), flex: 1,),
-        ],
-      ),
+    return GetBuilder<EncuestaDetalleController>(
+      id: 'encabezado',
+      builder: (_) => _.seleccionados.isEmpty ? Container(
+        child: Row(
+          children: [
+            Expanded(child: _itemContador("Total:", controller.personalRespondido.length ?? 0 ,Icons.inbox, infoColor), flex: 1,),
+            Expanded(child: _itemContador("Migrados:", controller.completados ,Icons.check, successColor), flex: 1,),
+            Expanded(child: _itemContador("Pendientes:", controller.pendientes,Icons.close, alertColor), flex: 1,),
+          ],
+        ),
+      ):
+        Container(
+          child: Row(children: [
+            Expanded(child: _itemContador("Seleccionados:",_.seleccionados.length ?? 0 ,Icons.check, successColor), flex: 1,),
+            Expanded(child: GestureDetector(
+              onTap: _.limpiarSeleccionados,
+              child: _itemContador("Deseleccionar", null ,Icons.check_box_outlined, infoColor)), flex: 1,),
+            Expanded(child: GestureDetector(
+              onTap: ()async => await _.goEliminarSeleccionados(),
+              child: _itemContador("Eliminar", null ,Icons.close, dangerColor)), flex: 1,),
+          ],),
+        )
+      ,
     );
   }
 
@@ -215,7 +239,7 @@ class EncuestaDetallePage extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),),
-
+              if(valor!=null)
               Text('  $valor', style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

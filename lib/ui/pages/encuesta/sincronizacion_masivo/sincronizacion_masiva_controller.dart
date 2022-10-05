@@ -1,33 +1,33 @@
 
-import 'package:flutter_actividades/domain/entities/encuesta_detalle_entity.dart';
 import 'package:flutter_actividades/domain/entities/encuesta_entity.dart';
+import 'package:flutter_actividades/domain/entities/personal_respuestas_entity.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta/update_encuesta_use_case.dart';
-import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/get_all_encuesta_detalle_use_case.dart';
-import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/migracion_encuesta_detalle_use_case.dart';
-import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/update_encuesta_detalle_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/encuesta_detalle/migracion_personal_respuestas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/personal_respuestas/get_all_personal_respuestas_use_case.dart';
+import 'package:flutter_actividades/domain/use_cases/encuesta/personal_respuestas/update_personal_respuestas_use_case.dart';
 import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:get/get.dart';
 
 class SincronizacionMasivaController extends GetxController{
 
-  GetAllEncuestaDetalleUseCase _getAllEncuestaDetalleUseCase;
-  MigracionEncuestaDetalleUseCase _migracionEncuestaDetalleUseCase;
-  UpdateEncuestaDetalleUseCase _updateEncuestaDetalleUseCase;
+  GetAllPersonalRespuestasUseCase _getAllPersonalRespuestasUseCase;
+  MigracionPersonalRespuestasUseCase  _migracionPersonalRespuestasUseCase;
+  UpdatePersonalRespuestasUseCase _updatePersonalRespuestasUseCase;
   UpdateEncuestaUseCase _updateEncuestaUseCase;
 
   EncuestaEntity encuestaSeleccionada;
-  List<EncuestaDetalleEntity> detalles=[];
-  List<EncuestaDetalleEntity> dResultados=[];
-  List<EncuestaDetalleEntity> detallesSinSincronizar=[];
+  List<PersonalRespuestasEntity> detalles=[];
+  List<PersonalRespuestasEntity> dResultados=[];
+  List<PersonalRespuestasEntity> detallesSinSincronizar=[];
   bool validando=false;
   int sincronizados=0;
   int repetidos=0;
 
 
   SincronizacionMasivaController(
-    this._getAllEncuestaDetalleUseCase, 
-    this._migracionEncuestaDetalleUseCase, 
-    this._updateEncuestaDetalleUseCase, 
+    this._getAllPersonalRespuestasUseCase, 
+    this._migracionPersonalRespuestasUseCase, 
+    this._updatePersonalRespuestasUseCase, 
     this._updateEncuestaUseCase
   );
 
@@ -45,7 +45,7 @@ class SincronizacionMasivaController extends GetxController{
   void onReady() async{
     validando=true;
     update(['validando']);
-    detalles=await _getAllEncuestaDetalleUseCase.execute('${encuestaSeleccionada.id}');
+    detalles=await _getAllPersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}');
     
     detalles.forEach((e) {
       if(e.estadoLocal!=1) detallesSinSincronizar.add(e);
@@ -81,7 +81,7 @@ class SincronizacionMasivaController extends GetxController{
     sincronizados=0;
     repetidos=0;
 
-    dResultados=await _migracionEncuestaDetalleUseCase.execute(detallesSinSincronizar);
+    dResultados=await _migracionPersonalRespuestasUseCase.execute(detallesSinSincronizar);
     for (var i = 0; i < dResultados.length; i++) {
       
       switch (dResultados[i].estado) {
@@ -98,7 +98,7 @@ class SincronizacionMasivaController extends GetxController{
           detallesSinSincronizar[i].estadoLocal=0;
           break;
       }
-      await _updateEncuestaDetalleUseCase.execute(
+      await _updatePersonalRespuestasUseCase.execute(
         '${encuestaSeleccionada.id}', 
         detallesSinSincronizar[i].key,
         detallesSinSincronizar[i]
