@@ -16,6 +16,7 @@ import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encues
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_by_values_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_unidad_negocios_by_values_use_case.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/informacion_encuestado/informacion_encuestado_page.dart';
+import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:get/get.dart';
 
 class PreguntasController extends GetxController {
@@ -137,6 +138,8 @@ class PreguntasController extends GetxController {
           personal: personalSeleccionado,
           codigoempresa: personalSeleccionado.codigoempresa,
           estadoLocal: 0,
+          idusuario: PreferenciasUsuario().idUsuario,
+          idsubdivision: PreferenciasUsuario().idSubdivision,
           fecha: DateTime.now(),
           hora: DateTime.now(),
           detalles: [],
@@ -148,6 +151,7 @@ class PreguntasController extends GetxController {
         pregunta.indexesSelected.forEach((indexSelected) {
           DetalleRespuestaEntity detalle = new DetalleRespuestaEntity(
           fecha: DateTime.now(),
+          idusuario: PreferenciasUsuario().idUsuario,
           hora: DateTime.now(),
           estadoLocal: 0,
           idopcion: indexSelected,
@@ -190,8 +194,7 @@ class PreguntasController extends GetxController {
       return;
     }
     int index=preguntaSeleccionada.indexesSelected.indexWhere((e) => e == indexOpcion);
-    if(preguntaSeleccionada.idtipopregunta == 2){
-    //if(true){
+    if(preguntaSeleccionada.idtipopregunta == 1){
       if(index == -1){
         preguntaSeleccionada.indexesSelected.add(indexOpcion);
       }

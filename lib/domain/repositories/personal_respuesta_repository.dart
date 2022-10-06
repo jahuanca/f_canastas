@@ -8,7 +8,7 @@ abstract class PersonalRespuestasRepository{
   Future<int> create(String box, PersonalRespuestasEntity personal);
   Future<PersonalRespuestasEntity> migrar(String box, int key);
   Future<PersonalRespuestasEntity> migrarAll(String box);
-  Future<List<PersonalRespuestasEntity>> migracionMasiva(List<PersonalRespuestasEntity> detallesEnviar);
+  Future<List<PersonalRespuestasEntity>> migracionMasiva(int idencuesta, List<PersonalRespuestasEntity> detallesEnviar);
   Future<PersonalRespuestasEntity> uploadFile(String box, PersonalRespuestasEntity personal, File fileLocal);
   Future<void> update(String box, PersonalRespuestasEntity personal , int key);
   Future<void> delete(String box, int key);

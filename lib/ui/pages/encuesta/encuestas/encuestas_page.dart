@@ -61,7 +61,10 @@ class EncuestasPage extends StatelessWidget {
                         child: Container(
                           child: Row(
                             children: [
-                              Expanded(child: Container(), flex: 1,),
+                              Expanded(
+                                child: Container(),
+                                flex: 1,
+                              ),
                               Expanded(
                                 child: Container(
                                   child: Column(
@@ -70,67 +73,92 @@ class EncuestasPage extends StatelessWidget {
                                         child: Container(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                              '${_.encuestas[index]?.name}: ${formatoFechaExplore(_.encuestas[index].fechaInicio, 0, 0)} - ${formatoFechaExplore(_.encuestas[index].fechaFin, 0, 0)}' ??
-                                                  '',
+                                            '${_.encuestas[index]?.name}: ${formatoFechaExplore(_.encuestas[index].fechaInicio, 0, 0)} - ${formatoFechaExplore(_.encuestas[index].fechaFin, 0, 0)}' ??
+                                                '',
                                             style: TextStyle(
-                                              color: Colors.black87
-                                            ),
-                                                  
+                                                color: Colors.black87),
                                           ),
                                         ),
                                         flex: 2,
                                       ),
-                                      
-
                                       Expanded(
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Container(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                  '${_.encuestas[index].titulo}' ??'',
-                                                  style: TextStyle(
-                                                    fontWeight:FontWeight.w500,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    color: Colors.black,
-                                                  ),
-
+                                                '${_.encuestas[index].titulo}' ??
+                                                    '',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ),
-
                                             Container(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                  '${_.encuestas[index].tipoEncuesta}' ?? '',
-                                                  style: TextStyle(
-                                                    color: Colors.black54
-                                                  ),
-                                                    
+                                                '${_.encuestas[index].tipoEncuesta}' ??
+                                                    '',
+                                                style: TextStyle(
+                                                    color: Colors.black54),
                                               ),
                                             ),
                                           ],
                                         ),
                                         flex: 2,
                                       ),
-
-
                                       Expanded(
                                         child: Row(
                                           children: [
-                                            Expanded(child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.textsms_outlined, color: infoColor,),
-                                                SizedBox(width: 10,),
-                                                Text('${_.encuestas[index].preguntas.length ?? 0}', style: TextStyle(
-                                                  color: infoColor,
-                                                  fontWeight: FontWeight.bold
-                                                ),)
-                                              ],
-                                            ), flex: 1),
+                                            Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.sms_outlined,
+                                                      color: infoColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Text(
+                                                      '${_.encuestas[index].preguntas.length ?? 0}',
+                                                      style: TextStyle(
+                                                          color: infoColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                                flex: 1),
+                                            /* if(((_.encuestas[index]?.cantidadTotal ?? 0) != 0)) */
+                                            Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.person_outline,
+                                                      color: successColor,
+                                                    ),
+                                                    Text(
+                                                      '${_.encuestas[index].cantidadTotal ?? 0}',
+                                                      style: TextStyle(
+                                                          color: successColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                                flex: 1),
 
-                                            if((_.encuestas[index]?.hayPendientes ?? false))
+                                            /*if((_.encuestas[index]?.hayPendientes ?? false))
                                             Expanded(child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -139,11 +167,11 @@ class EncuestasPage extends StatelessWidget {
                                                   child: Icon(Icons.error , color: alertColor,)),
                                               ],
                                             ), flex: 1),
+                                            */
                                           ],
                                         ),
                                         flex: 2,
                                       ),
-                                      
                                     ],
                                   ),
                                 ),
@@ -159,7 +187,8 @@ class EncuestasPage extends StatelessWidget {
                                       CircleAvatar(
                                         backgroundColor: primaryColor,
                                         child: IconButton(
-                                          onPressed: ()=> _.goSincronizacionMasiva(index),
+                                          onPressed: () =>
+                                              _.goSincronizacionMasiva(index),
                                           icon: Icon(Icons.sync,
                                               color: Colors.white),
                                         ),

@@ -136,7 +136,7 @@ class SincronizacionMasivaPage extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Text(
-                'Sin sincronizar',
+                'Por sincronizar',
                 style: TextStyle(
                   color: black,
                   fontSize: 16,

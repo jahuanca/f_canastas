@@ -48,7 +48,7 @@ class SincronizacionMasivaController extends GetxController{
     detalles=await _getAllPersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}');
     
     detalles.forEach((e) {
-      if(e.estadoLocal!=1) detallesSinSincronizar.add(e);
+      if(e.estadoLocal!=1 && e.respuestas.length >= encuestaSeleccionada.preguntas.length ) detallesSinSincronizar.add(e);
     });
     validando=false;
     update(['validando', 'data']);
@@ -81,7 +81,7 @@ class SincronizacionMasivaController extends GetxController{
     sincronizados=0;
     repetidos=0;
 
-    dResultados=await _migracionPersonalRespuestasUseCase.execute(detallesSinSincronizar);
+    dResultados=await _migracionPersonalRespuestasUseCase.execute(encuestaSeleccionada.id ,detallesSinSincronizar);
     for (var i = 0; i < dResultados.length; i++) {
       
       switch (dResultados[i].estado) {
@@ -98,11 +98,11 @@ class SincronizacionMasivaController extends GetxController{
           detallesSinSincronizar[i].estadoLocal=0;
           break;
       }
-      await _updatePersonalRespuestasUseCase.execute(
+      /* await _updatePersonalRespuestasUseCase.execute(
         '${encuestaSeleccionada.id}', 
         detallesSinSincronizar[i].key,
         detallesSinSincronizar[i]
-      );
+      ); */
     }
     encuestaSeleccionada.hayPendientes=((detallesSinSincronizar?.length ?? 0) > sincronizados);
     detallesSinSincronizar.clear();

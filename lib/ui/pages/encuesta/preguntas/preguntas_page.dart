@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_actividades/core/encuesta/colors.dart';
 import 'package:flutter_actividades/core/encuesta/dimens.dart';
@@ -191,8 +192,9 @@ class PreguntasPage extends StatelessWidget {
             id: 'pregunta_$index',
             builder: (_) => Column(
                   children: [
+                    
                     Container(
-                      padding: EdgeInsets.only(top: 15, bottom: 10),
+                      padding: EdgeInsets.only(top: 15, bottom: 5),
                       child: Row(
                         children: [
                           Expanded(
@@ -229,6 +231,17 @@ class PreguntasPage extends StatelessWidget {
                     ),
                     if (_.encuestaSeleccionada.preguntas[index]?.idRespuestaDB == null)
                       _itemBorrar(index),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 15),
+                      child: Text(
+                        _.encuestaSeleccionada.preguntas[index].tipoPregunta() ?? '',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 12
+                        ),
+                      ),
+                    ),
                     _itemPreguntas(
                         index, _.encuestaSeleccionada.preguntas[index].opciones)
                   ],

@@ -120,7 +120,7 @@ class EncuestaDetalleRepositoryImplementation
   }
 
   @override
-  Future<List<EncuestaDetalleEntity>> migracionMasiva(List<EncuestaDetalleEntity> detallesEnviar) async {
+  Future<List<EncuestaDetalleEntity>> migracionMasiva(int idencuesta, List<EncuestaDetalleEntity> detallesEnviar) async {
    
     final AppHttpManager http = AppHttpManager();
     final res = await http.post(

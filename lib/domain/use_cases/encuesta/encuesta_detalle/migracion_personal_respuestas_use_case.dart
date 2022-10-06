@@ -7,8 +7,8 @@ class MigracionPersonalRespuestasUseCase{
 
   MigracionPersonalRespuestasUseCase(this._repository);
 
-  Future<List<PersonalRespuestasEntity>> execute(List<PersonalRespuestasEntity> encuestaDetalle) async{
-    return await _repository.migracionMasiva(encuestaDetalle);
+  Future<List<PersonalRespuestasEntity>> execute(int idencuesta, List<PersonalRespuestasEntity> encuestaDetalle) async{
+    return await _repository.migracionMasiva(idencuesta, encuestaDetalle);
   }
 
 }

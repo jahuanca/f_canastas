@@ -59,6 +59,14 @@ class PreguntaEntity {
     int estadoLocal;
     int idRespuestaDB;
 
+    String tipoPregunta(){
+      switch (this.idtipopregunta) {
+        case 1: return 'Respuesta múltiple.';
+        case 2: return 'Respuesta única.';
+        default:  return 'Sin tipo';
+      } 
+    }
+
     factory PreguntaEntity.fromJson(Map<String, dynamic> json) => PreguntaEntity(
         id: json["id"] == null ? null : json["id"],
         idRespuestaDB: json["idRespuestaDB"] == null ? null : json["idRespuestaDB"],

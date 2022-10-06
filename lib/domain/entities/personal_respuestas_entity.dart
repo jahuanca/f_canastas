@@ -128,11 +128,12 @@ class PersonalRespuestasEntity {
     
     for (RespuestaEntity r in this.respuestas) {
       if (r.id == null) {
+        print('Respuestas: '+r.id.toString());
         return true;
       }
     }
     if(this.respuestas.isEmpty) return true;
-    if(this.estado!='A') return false;
+    if(this.estado=='A') return false;
     return false;
   }
 

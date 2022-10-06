@@ -24,6 +24,8 @@ class RespuestaEntity {
         this.idturno,
         this.idpregunta,
         this.estadoLocal,
+        this.idusuario,
+        this.idsubdivision,
     });
     
     
@@ -55,6 +57,10 @@ class RespuestaEntity {
     DateTime hora;
     @HiveField(13)
     int idpregunta;
+    @HiveField(14)
+    int idusuario;
+    @HiveField(15)
+    int idsubdivision;
     
 
     String getEstado(){
@@ -73,6 +79,8 @@ class RespuestaEntity {
     factory RespuestaEntity.fromJson(Map<String, dynamic> json) => RespuestaEntity(
         id: json["id"] == null ? null : json["id"],
         key: json["key"] == null ? null : json["key"],
+        idusuario: json["idusuario"] == null ? null : json["idusuario"],
+        idsubdivision: json["idsubdivision"] == null ? null : json["idsubdivision"],
         idencuesta: json["idencuesta"] == null ? null : json["idencuesta"],
         idpregunta: json["idpregunta"] == null ? null : json["idpregunta"],
         codigoempresa: json["codigoempresa"] == null ? null : json["codigoempresa"],
@@ -92,6 +100,8 @@ class RespuestaEntity {
     Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "idpregunta": idpregunta == null ? null : idpregunta,
+        "idusuario": idusuario == null ? null : idusuario,
+        "idsubdivision": idsubdivision == null ? null : idsubdivision,
         "key": key == null ? null : key,
         "idencuesta": idencuesta == null ? null : idencuesta,
         "codigoempresa": codigoempresa == null ? null : codigoempresa,

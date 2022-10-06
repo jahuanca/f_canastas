@@ -64,10 +64,10 @@ class EncuestaDetalleController extends GetxController {
     super.onInit();
   }
 
-  Future<void> refreshContadores() async{
-    enviados=0;
-    completados=0;
-    pendientes=0;
+  Future<void> refreshContadores() async {
+    enviados = 0;
+    completados = 0;
+    pendientes = 0;
     personalRespondido.forEach((e) {
       if (e?.estadoLocal == '1' && e?.estado != 'R') enviados = enviados + 1;
       (e.getPendientesPorMigrar()) ? pendientes++ : completados++;
@@ -171,16 +171,16 @@ class EncuestaDetalleController extends GetxController {
           personalRespondido.add(result);
 
           (result.getPendientesPorMigrar()) ? pendientes++ : completados++;
-          //agregar editar el key //ver el tema de idetapa,campo, turno
+
           /* resultR.detalles=result;
             resultR.personal=personal[index];
             resultR.codigoempresa=personal[index].codigoempresa;
           */
-          /* detalles.add(resultR);
-          encuestaSeleccionada.cantidadTotal=detalles.length;
-          encuestaSeleccionada.hayPendientes=true;
-          
-          await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key); */
+          /* detalles.add(resultR);*/
+          encuestaSeleccionada.cantidadTotal = personalRespondido.length;
+          encuestaSeleccionada.hayPendientes = true;
+          await _updateEncuestaUseCase.execute(
+              encuestaSeleccionada, encuestaSeleccionada.key);
           update(['validando', 'detalles']);
         }
       } else {
@@ -208,7 +208,9 @@ class EncuestaDetalleController extends GetxController {
       await _updatePersonalRespuestasUseCase.execute(
           '${encuestaSeleccionada.id}', personalRespondido[index].key, result);
       personalRespondido[index] = result;
-      /* result.key=personalRespondido[index].key; */
+      encuestaSeleccionada.cantidadTotal = personalRespondido.length;
+      encuestaSeleccionada.hayPendientes = true;
+      await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key);
       update(['detalles']);
     }
   }
@@ -271,8 +273,7 @@ class EncuestaDetalleController extends GetxController {
     }
     await personalRespondido.removeAt(index);
     encuestaSeleccionada.cantidadTotal = personalRespondido.length;
-    encuestaSeleccionada.hayPendientes =
-        ((personalRespondido.length ?? 0) > enviados);
+    encuestaSeleccionada.hayPendientes = (pendientes > 0);
     await _updateEncuestaUseCase.execute(
         encuestaSeleccionada, encuestaSeleccionada.key);
   }
@@ -334,9 +335,11 @@ class EncuestaDetalleController extends GetxController {
         personalRespondido[index].respuestas= res.detalles;
         await _updatePersonalRespuestasUseCase.execute('${encuestaSeleccionada.id}', personalRespondido[index].key, personalRespondido[index]);
         encuestaSeleccionada.cantidadTotal=personalRespondido.length;
-        enviados=enviados+1;
-        encuestaSeleccionada.hayPendientes=((personalRespondido.length ?? 0) > enviados);
-        await _updateEncuestaUseCase.execute(encuestaSeleccionada, encuestaSeleccionada.key); */
+        enviados=enviados+1;*/
+        encuestaSeleccionada.hayPendientes = (pendientes > 0);
+        encuestaSeleccionada.cantidadTotal = personalRespondido.length;
+        await _updateEncuestaUseCase.execute(
+            encuestaSeleccionada, encuestaSeleccionada.key);
       } else {
         toastError('Error', 'Ocurrio un error al migrar la información.');
       }

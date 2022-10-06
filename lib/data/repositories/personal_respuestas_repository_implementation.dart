@@ -125,7 +125,7 @@ class PersonalRespuestasRepositoryImplementation
   }
 
   @override
-  Future<List<PersonalRespuestasEntity>> migracionMasiva(List<PersonalRespuestasEntity> detallesEnviar) async {
+  Future<List<PersonalRespuestasEntity>> migracionMasiva(int idencuesta, List<PersonalRespuestasEntity> detallesEnviar) async {
    
     final AppHttpManager http = AppHttpManager();
     final res = await http.post(
@@ -137,7 +137,7 @@ class PersonalRespuestasRepositoryImplementation
 
     List<PersonalRespuestasEntity> respuestas=personalRespuestaEntityFromJson(res);
 
-    Box<PersonalRespuestasEntity> tareas = await Hive.openBox<PersonalRespuestasEntity>('${respuestas[0].idencuesta}_encuesta_sincronizar');
+    Box<PersonalRespuestasEntity> tareas = await Hive.openBox<PersonalRespuestasEntity>('${idencuesta}_encuesta_sincronizar');
     for (var i = 0; i < respuestas.length; i++) {
       await tareas?.put(respuestas[i].key, respuestas[i]);
     }

@@ -31,13 +31,15 @@ class RespuestaEntityAdapter extends TypeAdapter<RespuestaEntity> {
       idturno: fields[10] as int,
       idpregunta: fields[13] as int,
       estadoLocal: fields[4] as int,
+      idusuario: fields[14] as int,
+      idsubdivision: fields[15] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, RespuestaEntity obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.key)
       ..writeByte(1)
@@ -65,7 +67,11 @@ class RespuestaEntityAdapter extends TypeAdapter<RespuestaEntity> {
       ..writeByte(12)
       ..write(obj.hora)
       ..writeByte(13)
-      ..write(obj.idpregunta);
+      ..write(obj.idpregunta)
+      ..writeByte(14)
+      ..write(obj.idusuario)
+      ..writeByte(15)
+      ..write(obj.idsubdivision);
   }
 
   @override
