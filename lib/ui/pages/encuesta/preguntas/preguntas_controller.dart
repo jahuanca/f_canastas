@@ -16,6 +16,7 @@ import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encues
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_encuesta_turnos_by_values_use_case.dart';
 import 'package:flutter_actividades/domain/use_cases/encuesta/informacion_encuestado/get_unidad_negocios_by_values_use_case.dart';
 import 'package:flutter_actividades/ui/pages/encuesta/informacion_encuestado/informacion_encuestado_page.dart';
+import 'package:flutter_actividades/ui/utils/alert_dialogs.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:get/get.dart';
 
@@ -124,11 +125,20 @@ class PreguntasController extends GetxController {
   }
 
   void goReturn() {
+
     validando = true;
     update(['validando']);
     List<RespuestaEntity> respuestas = [];
 
     encuestaSeleccionada.preguntas.forEach((pregunta) {
+
+      if (([null,0].contains(pregunta.indexesSelected?.length))) {
+        validando = false;
+        update(['validando']);
+        toastError('Error', 'Debe responder todas las preguntas.');
+        return;
+      }
+
       if (!([null,0].contains(pregunta.indexesSelected?.length))) {
         RespuestaEntity respuesta = new RespuestaEntity(
           idunidad: informacion?.idunidad,
@@ -146,7 +156,6 @@ class PreguntasController extends GetxController {
           id: pregunta.idRespuestaDB,
           idpregunta: pregunta.id,
         );
-
 
         pregunta.indexesSelected.forEach((indexSelected) {
           DetalleRespuestaEntity detalle = new DetalleRespuestaEntity(
@@ -195,15 +204,15 @@ class PreguntasController extends GetxController {
     }
     int index=preguntaSeleccionada.indexesSelected.indexWhere((e) => e == indexOpcion);
     if(preguntaSeleccionada.idtipopregunta == 1){
+      preguntaSeleccionada.indexesSelected.clear();
+      preguntaSeleccionada.indexesSelected.add(indexOpcion);
+    }else{
       if(index == -1){
         preguntaSeleccionada.indexesSelected.add(indexOpcion);
       }
       else{
         preguntaSeleccionada.indexesSelected?.removeAt(index);
       }
-    }else{
-      preguntaSeleccionada.indexesSelected.clear();
-      preguntaSeleccionada.indexesSelected.add(indexOpcion);
     }
 
     update(['pregunta_${indexPregunta}']);

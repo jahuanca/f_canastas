@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter_actividades/core/entregable/strings.dart';
 import 'package:flutter_actividades/data/http_manager/app_http_manager.dart';
 import 'package:flutter_actividades/domain/entities/personal_respuestas_entity.dart';
-import 'package:flutter_actividades/domain/entities/respuesta_entity.dart';
 import 'package:flutter_actividades/domain/repositories/personal_respuesta_repository.dart';
 import 'package:flutter_actividades/ui/utils/preferencias_usuario.dart';
 import 'package:hive/hive.dart';

@@ -285,6 +285,7 @@ class EncuestaDetalleController extends GetxController {
     }
     numeroDocumento = value;
     errorNumeroDocumento = false;
+    update(['numero_documento']);
   }
 
   Future<void> searchNumeroDocumento() async {

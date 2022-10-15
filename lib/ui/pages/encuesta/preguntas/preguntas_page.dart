@@ -319,9 +319,7 @@ class PreguntasPage extends StatelessWidget {
       children.add(_itemOpcion(e, index));
     }
 
-    if (!controller
-            .encuestaSeleccionada.preguntas[index].permitirOpcionManual ??
-        false) {
+    if (controller.encuestaSeleccionada.preguntas[index].permitirOpcionManual) {
       children.add(_itemOpcion(
           OpcionEntity(
             id: -1,
@@ -417,6 +415,7 @@ class PreguntasPage extends StatelessWidget {
             initialValue:
                 _.encuestaSeleccionada.preguntas[indexPregunta].opcionManual ??
                     '',
+            maxLength: 50,
             hintText: 'Ingrese su respuesta'),
       ),
     );

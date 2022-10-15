@@ -87,7 +87,7 @@ class InformacionEncuestadoController extends GetxController {
   Future<void> getCamposByValue(int idEtapa) async {
     encuestaCampos = await _getEncuestaCamposByValuesUseCase.execute({
       'idetapa': idEtapa,
-    });
+    })..sort((a, b) => a.campo.compareTo(b.campo));
     if (encuestaCampos.length > 0) {
       encuestaCampoSelected = encuestaCampos.first;
       await changeCampo(editando
@@ -100,7 +100,7 @@ class InformacionEncuestadoController extends GetxController {
   Future<void> getTurnosByValue(int idCampo) async {
     encuestaTurnos = await _getEncuestaTurnosByValuesUseCase.execute({
       'idcampo': idCampo,
-    });
+    })..sort((a, b) => a.turno.compareTo(b.turno));
 
     if (encuestaTurnos.length > 0) {
       print('tiene valores');
