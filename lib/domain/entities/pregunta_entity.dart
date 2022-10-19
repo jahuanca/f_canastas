@@ -61,8 +61,8 @@ class PreguntaEntity {
 
     String tipoPregunta(){
       switch (this.idtipopregunta) {
-        case 1: return 'Respuesta múltiple.';
-        case 2: return 'Respuesta única.';
+        case 1: return 'Opción única.';
+        case 2: return 'Opción multiple.';
         default:  return 'Sin tipo';
       } 
     }

@@ -204,15 +204,15 @@ class PreguntasController extends GetxController {
     }
     int index=preguntaSeleccionada.indexesSelected.indexWhere((e) => e == indexOpcion);
     if(preguntaSeleccionada.idtipopregunta == 1){
+      preguntaSeleccionada.indexesSelected.clear();
+      preguntaSeleccionada.indexesSelected.add(indexOpcion);
+    }else{
       if(index == -1){
         preguntaSeleccionada.indexesSelected.add(indexOpcion);
       }
       else{
         preguntaSeleccionada.indexesSelected?.removeAt(index);
       }
-    }else{
-      preguntaSeleccionada.indexesSelected.clear();
-      preguntaSeleccionada.indexesSelected.add(indexOpcion);
     }
 
     update(['pregunta_${indexPregunta}']);
