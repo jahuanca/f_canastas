@@ -19,10 +19,13 @@ class EncuestasPage extends StatelessWidget {
         backgroundColor: secondColor,
         body: GetBuilder<EncuestasController>(
           id: 'encuestas',
-          builder: (_) => ListView.builder(
-            itemCount: _.encuestas.length,
-            itemBuilder: (context, index) =>
-                _itemActividad(size, context, index),
+          builder: (_) => RefreshIndicator(
+            onRefresh: _.getEncuestas,
+            child: ListView.builder(
+              itemCount: _.encuestas.length,
+              itemBuilder: (context, index) =>
+                  _itemActividad(size, context, index),
+            ),
           ),
         ),
       ),
@@ -102,8 +105,7 @@ class EncuestasPage extends StatelessWidget {
                                             Container(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                '${_.encuestas[index].tipoEncuesta}' ??
-                                                    '',
+                                                _.encuestas[index].descripcion ??'-Sin descripción',
                                                 style: TextStyle(
                                                     color: Colors.black54),
                                               ),

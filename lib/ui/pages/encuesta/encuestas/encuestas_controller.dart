@@ -22,13 +22,17 @@ class EncuestasController extends GetxController{
   @override
   void onReady() async{
     super.onReady();
+    await getEncuestas();
+  }
+
+
+  Future<void> getEncuestas()async{
     validando=true;
     update(['validando']);
     encuestas= await _getAllEncuestaUseCase.execute();
     validando=false;
     update(['validando', 'encuestas']);
   }
-
 
   void seleccionar(int index){
 

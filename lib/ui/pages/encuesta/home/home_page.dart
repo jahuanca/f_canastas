@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                   child: GetBuilder<HomeController>(
                     id: 'refresh',
                     builder: (_) => CircleAvatar(
-                      backgroundColor: _.modo == 0 ? Colors.grey : infoColor,
+                      backgroundColor: _.modo == 0 ? Colors.grey : primaryColor,
                         child: IconButton(
                       onPressed: _.modo == 0 ? null : _.goSincronizar,
                       icon: Icon(Icons.refresh, color: Colors.white,),

@@ -415,7 +415,7 @@ class PreguntasPage extends StatelessWidget {
             initialValue:
                 _.encuestaSeleccionada.preguntas[indexPregunta].opcionManual ??
                     '',
-            maxLength: 50,
+            maxLength: 200,
             hintText: 'Ingrese su respuesta'),
       ),
     );

@@ -53,8 +53,8 @@ android {
         applicationId "com.example.flutter_actividades"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 8
-        versionName '1.0.7'
+        versionCode 9
+        versionName '2.0.1'
     }
 
     signingConfigs {

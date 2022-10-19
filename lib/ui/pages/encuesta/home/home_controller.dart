@@ -39,7 +39,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> goSincronizar() async{
-    SincronizarBinding().dependencies();
+    SincronizarBinding(type: 1).dependencies();
     await Get.to(()=> SincronizarPage());
     setLog();
   }

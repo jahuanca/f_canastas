@@ -291,7 +291,7 @@ class EncuestaDetallePage extends StatelessWidget {
                 _.changeNumeroDocumento(null);
                 return TextField(
                   onChanged: _.changeNumeroDocumento,
-                  /* maxLength: 11, */
+                  maxLength: 11,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(hintText: "Digite el documento"),
                 );
