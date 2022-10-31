@@ -112,6 +112,8 @@ class PersonalRespuestasRepositoryImplementation
     List<PersonalRespuestasEntity> v = tareas.values.toList();
     await tareas.close();
 
+    log(v.toString());
+
     final AppHttpManager http = AppHttpManager();
     final res = await http.post(
       url: '$urlModule/createAll',
@@ -125,6 +127,8 @@ class PersonalRespuestasRepositoryImplementation
 
   @override
   Future<List<PersonalRespuestasEntity>> migracionMasiva(int idencuesta, List<PersonalRespuestasEntity> detallesEnviar) async {
+
+    detallesEnviar.forEach((x) => log(x.toJson().toString()));
    
     final AppHttpManager http = AppHttpManager();
     final res = await http.post(

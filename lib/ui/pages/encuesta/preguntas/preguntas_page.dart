@@ -373,7 +373,7 @@ class PreguntasPage extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        e.opcion,
+                        e.opcion ?? '-Sin descripción-',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: _.encuestaSeleccionada.preguntas[index].indexesSelected.contains(e.id)  ??

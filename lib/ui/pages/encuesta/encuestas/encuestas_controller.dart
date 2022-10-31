@@ -25,11 +25,10 @@ class EncuestasController extends GetxController{
     await getEncuestas();
   }
 
-
   Future<void> getEncuestas()async{
     validando=true;
     update(['validando']);
-    encuestas= await _getAllEncuestaUseCase.execute();
+    encuestas= ((await _getAllEncuestaUseCase.execute()) ?? [])..sort((a,b)=> b.createdAt.compareTo(a.createdAt));
     validando=false;
     update(['validando', 'encuestas']);
   }

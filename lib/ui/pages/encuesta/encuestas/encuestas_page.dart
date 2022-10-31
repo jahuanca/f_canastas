@@ -107,6 +107,7 @@ class EncuestasPage extends StatelessWidget {
                                               child: Text(
                                                 _.encuestas[index].descripcion ??'-Sin descripción',
                                                 style: TextStyle(
+                                                    overflow: TextOverflow.ellipsis ,
                                                     color: Colors.black54),
                                               ),
                                             ),
